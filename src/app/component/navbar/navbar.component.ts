@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {  RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { itemNavbar } from '../../interfaces/interface';
+
 @Component({
   selector: 'app-navbar',
   imports: [RouterOutlet],
   templateUrl: './navbar.component.html',
-  styles:[]
+  styles: []
 })
 export class NavbarComponent {
   listaMenu: itemNavbar[]=[
@@ -15,8 +16,7 @@ export class NavbarComponent {
     },
     {
       title: 'register',
-      url:'/register'
+      url: '/register'
     }
   ]
-
 }
