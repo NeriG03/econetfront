@@ -13,7 +13,7 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'econetfront',
+        redirectTo: 'login',
         pathMatch: 'full'
     }
 ];
