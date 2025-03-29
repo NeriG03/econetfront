@@ -7,8 +7,10 @@
         </div>
         <!-- Navigation Links -->
         <div class="hidden md:flex space-x-4">
-            @for(item of listaMenu; track $index ){
-          <a href="{{item.url}}" routerLinkActiva="border" class="hover:bg-gray-500 px-3 py-2 rounded-md">{{item.title}}</a>}
+          <a href="/principal" routerLinkActiva="border" class="hover:bg-gray-500 px-3 py-2 rounded-md">Inicio</a>
+          <a href="/login" routerLinkActiva="border" class="hover:bg-gray-500 px-3 py-2 rounded-md">Login</a>
+          
+          <a href="/register" routerLinkActiva="border" class="hover:bg-gray-500 px-3 py-2 rounded-md">Register</a>
 
         </div>
         <!-- Mobile Menu Button -->

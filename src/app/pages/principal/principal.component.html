@@ -1,0 +1,32 @@
+
+  
+  <div class="flex justify-center space-x-4 my-4">
+    <button class="bg-gray-300 px-4 py-2 rounded">Cuidado de plantas</button>
+    <button class="bg-gray-300 px-4 py-2 rounded">Noticias</button>
+    <button class="bg-gray-300 px-4 py-2 rounded">Ubicaciones verdes</button>
+  </div>
+  
+  <div class="text-center font-bold text-lg p-2 border rounded-md shadow-md">
+    ¿QUE ES ECONET.IO?
+  </div>
+  
+  <div class="flex items-center justify-between mt-4">
+    <button (click)="prevSlide()" [disabled]="currentSlide === 0">
+      &larr; Previous
+    </button>
+    <div class="w-full h-40 bg-gray-200 flex items-center justify-center rounded-md shadow-md">
+      <span class="text-gray-500">Imagen aquí (Slide {{ currentSlide }})</span>
+    </div>
+    <button (click)="nextSlide()">
+      Next &rarr;
+    </button>
+  </div>
+  
+  <div class="mt-4 p-4 border rounded-md shadow-md">
+    <h2 class="font-bold text-lg">Objetivo</h2>
+    <p>
+      Esta orientada a la concientización de las personas a cerca del impacto que generan las
+      personas diariamente al medio ambiente.
+    </p>
+  </div>
+  
