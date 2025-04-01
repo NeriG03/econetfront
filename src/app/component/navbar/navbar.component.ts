@@ -17,6 +17,18 @@ export class NavbarComponent {
     {
       title: 'register',
       url: '/register'
+    },
+    {
+      title: 'home',
+      url: '/home'
+    },
+    {
+      title: 'cuidemos',
+      url: '/cuidemos'
+    },
+    {
+      title: 'noticias',
+      url: '/noticias'
     }
   ]
 }
