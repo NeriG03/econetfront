@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cuidemos',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './cuidemos.component.html',
   styles: ''
 })
