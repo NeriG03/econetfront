@@ -11,24 +11,28 @@ import { itemNavbar } from '../../interfaces/interface';
 export class NavbarComponent {
   listaMenu: itemNavbar[]=[
     {
+      title: 'home',
+      url: '/home'
+    },
+    // {
+    //   title: 'cuidemos',
+    //   url: '/cuidemos'
+    // },
+    // {
+    //   title: 'noticias',
+    //   url: '/noticias'
+    // }
+    {
+      title: 'contáctanos',
+      url: '/contacto'
+    },
+    {
       title: 'login',
       url: '/login'
     },
     {
       title: 'register',
       url: '/register'
-    },
-    {
-      title: 'home',
-      url: '/home'
-    },
-    {
-      title: 'cuidemos',
-      url: '/cuidemos'
-    },
-    {
-      title: 'noticias',
-      url: '/noticias'
     }
   ]
 }

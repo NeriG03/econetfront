@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CuidemosComponent } from './pages/cuidemos/cuidemos.component';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
+import { ContactoComponent } from './pages/contacto/contacto.component';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,10 @@ export const routes: Routes = [
     {
         path: 'noticias',
         component: NoticiasComponent
+    },
+    {
+        path: 'contacto',
+        component: ContactoComponent
     },
     {
         path: '**',
