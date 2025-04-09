@@ -1,24 +1,51 @@
-<nav class="sticky top-0 z-50 bg-green-600 text-white shadow-lg">
+<nav *ngIf="shouldShowNavbar()" class="sticky top-0 z-50 bg-gradient-to-r from-green-700 to-green-500 text-white shadow-lg">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center">
-        <img src="https://iili.io/3YmfB6u.png" alt="Logo" height="20" class="logo mr-2">
-        <a href="#" class="text-xl font-bold">EcoNet.io</a>
+        <img src="https://iili.io/3a2jmXt.png" alt="Logo" height="30" class="h-13 w-auto mr-1">
+        <a href="#" class="text-xl font-bold tracking-wide hover:text-green-100 transition-colors">EcoNet.io</a>
       </div>
-      <!-- Navigation Links -->
-      <div class="hidden md:flex space-x-4">
-          @for(item of listaMenu; track $index ){
-        <a href="{{item.url}}" routerLinkActiva="border" class="hover:bg-green-700 px-3 py-2 rounded-md">{{item.title}}</a>}
-
+      
+      <!-- Navigation Links - Desktop -->
+      <div class="hidden md:flex space-x-1">
+        @for(item of listaMenu; track $index) {
+          <a 
+            [routerLink]="item.url" 
+            routerLinkActive="bg-green-700 text-white font-medium"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-700 hover:text-white">
+            {{item.title}}
+          </a>
+        }
       </div>
+      
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
-        <button class="text-white focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <button (click)="toggleMobileMenu()" class="text-white p-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-white">
+          <svg *ngIf="!isMobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
+          <svg *ngIf="isMobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
         </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div *ngIf="isMobileMenuOpen" class="md:hidden">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-green-400 animate-fadeIn">
+        @for(item of listaMenu; track $index) {
+          <a 
+            [routerLink]="item.url" 
+            routerLinkActive="bg-green-700"
+            [routerLinkActiveOptions]="{exact: true}"
+            (click)="isMobileMenuOpen = false"
+            class="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
+            {{item.title}}
+          </a>
+        }
       </div>
     </div>
   </div>
