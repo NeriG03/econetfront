@@ -1,43 +1,154 @@
 <!-- Home Page -->
-<div class="bg-sky-100 flex justify-center items-center min-h-screen">
-    <!-- Left Side: Imagen de fondo -->
-    <div class="w-1/2 min-h-screen hidden lg:block">
-        <img
-            src="https://iili.io/3YmE9cb.png"
-            alt="Econet Background"
-            class="object-cover w-full h-full"
-        />
+<div class="min-h-screen p-6 relative">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://iili.io/3aFJF7n.png" alt="Fondo Econet" class="w-full h-full object-cover opacity-70" />
+    </div>
+    
+    <!-- Contenido (poner en capa superior con z-10) -->
+    <div class="relative z-10">
+        <!-- Recuadro difuminado solo para el header -->
+        <div class="max-w-4xl mx-auto mb-6 backdrop-blur-sm bg-white/10 rounded-lg p-8 shadow-lg
+                    border-t-4 border-b-4 border-double border-green-700">
+            <!-- Header con título principal -->
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-green-900">¿Qué es EcoNet.io?</h1>
+                <p class="text-black-800 mt-2">
+                    Esta plataforma está orientada a la concientización y cuidado de las plantas y árboles.
+                </p>
+            </div>
         </div>
-    
-        <!-- Right Side: Contenido informativo -->
-        <div class="p-10 w-full lg:w-1/2">
-        <h1 class="text-3xl font-bold text-green-700 mb-6">¿Qué es Econet.io?</h1>
-    
-        <!-- Carrusel / sección destacada -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-xl font-semibold mb-2">🌱 Objetivo</h2>
-            <p class="text-gray-700">
-            Esta plataforma está orientada a la concientización de las personas acerca del impacto que generan diariamente al medio ambiente.
-            </p>
-        </div>
-    
-        <!-- Botones temáticos -->
-        <div class="flex flex-wrap gap-4 mb-6">
-            <a routerLink="/cuidemos" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-md">
-                Cuidado de Plantas
+        
+        <!-- Botones temáticos mejorados -->
+        <div class="flex flex-wrap justify-center gap-6 mb-12">
+            <a routerLink="/cuidemos" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                <i class="fas fa-leaf text-xl"></i>
+                <span>Cuidado de Plantas</span>
             </a>
 
-            <a routerLink="/noticias" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-md">
-                Noticias
+            <a routerLink="/noticias" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                <i class="fas fa-newspaper text-xl"></i>
+                <span>Noticias</span>
             </a>
 
-            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-md">Ubicaciones verdes</button>
+            <button class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                <i class="fas fa-map-marker-alt text-xl"></i>
+                <span>Ubicaciones verdes</span>
+            </button>
         </div>
-    
-        <!-- Navegación estilo carrusel -->
-        <div class="flex justify-between items-center text-gray-700 font-semibold">
-            <button class="hover:text-green-700">← Anterior</button>
-            <button class="hover:text-green-700">Siguiente →</button>
+        
+        <!-- Sistema de tarjetas: primera fila con diseño mejorado -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Card 1 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 1" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Destacado
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">Objetivo</h3>
+                    <p class="text-gray-600 mb-4">Breve descripción del objetivo principal de nuestra plataforma ecológica.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Card 2 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 2" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Importante
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">Misión</h3>
+                    <p class="text-gray-600 mb-4">Nuestra misión es promover prácticas sostenibles y el cuidado de la naturaleza.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Card 3 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 3" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Prioritario
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">Visión</h3>
+                    <p class="text-gray-600 mb-4">Visualizamos un mundo donde la tecnología y la naturaleza coexistan en armonía.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sistema de tarjetas: segunda fila con diseño mejorado -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 4 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 4" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Estratégico
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">ODS</h3>
+                    <p class="text-gray-600 mb-4">Alineados con los Objetivos de Desarrollo Sostenible de las Naciones Unidas.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Card 5 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 5" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Clave
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">Alcances</h3>
+                    <p class="text-gray-600 mb-4">Nuestro impacto se extiende a comunidades locales y ecosistemas globales.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Card 6 mejorada -->
+            <div class="bg-gradient-to-b from-white to-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl hover:scale-102 transition-all duration-300 transform">
+                <div class="relative">
+                    <img src="https://iili.io/3YmETRR.png" alt="Imagen 6" class="w-full h-56 object-cover hover:opacity-90 transition-opacity">
+                    <div class="absolute top-0 right-0 bg-green-700 text-white py-1 px-4 rounded-bl-lg font-medium">
+                        Esencial
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-2xl text-green-800 mb-3">Metas</h3>
+                    <p class="text-gray-600 mb-4">Trabajamos hacia objetivos claros y medibles para un futuro sostenible.</p>
+                    <button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-lg shadow-md flex items-center gap-2 transform transition-transform hover:translate-x-1">
+                        <span>Ver más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
