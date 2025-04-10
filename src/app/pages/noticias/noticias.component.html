@@ -1,41 +1,50 @@
 <div class="bg-white min-h-screen flex flex-col items-center pt-10 px-6">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://iili.io/3aFJF7n.png" alt="Fondo Econet" class="w-full h-full object-cover opacity-70" />
+    </div>
     <!-- Encabezado -->
-    <h1 class="text-3xl font-bold text-green-700 mb-6">Noticias Ambientales</h1>
-        <!-- Navegación superior de secciones -->
-        <div class="flex flex-wrap gap-4 mb-8">
-            <a routerLink="/cuidemos" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-md">
-                Cuidado de Plantas
-            </a>
-            <a routerLink="/noticias" class="bg-gray-800 hover:bg-gray-600 text-white px-4 py-2 rounded-full shadow-md">
-                Noticias
-            </a>
-            <a routerLink="/ubicaciones" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-md">
-                Ubicaciones verdes
-            </a>
-        </div>
-    
-        <!-- Navegación carrusel -->
-        <div class="flex justify-between w-full max-w-4xl text-gray-700 font-semibold mb-6">
-        <button class="hover:text-green-600">← Previous</button>
-        <button class="hover:text-green-600">Next →</button>
-        </div>
-    
-        <!-- Contenedor de noticias -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
-        <!-- Noticia 1 -->
-        <div class="text-center">
-            <img src="https://imagenes.20minutos.es/files/image_990_v3/uploads/imagenes/2023/10/08/limpieza-playas-tras-la-dana-en-valencia.jpeg" alt="Limpieza de playa" class="rounded-md shadow-md mb-4 object-cover w-full h-60">
-            <h2 class="text-lg font-semibold underline hover:text-green-700">
-            Así es la lucha por recuperar el litoral valenciano meses después de la Dana
-            </h2>
-        </div>
-    
-        <!-- Noticia 2 -->
-        <div class="text-center">
-            <img src="https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic515213.jpg?w=1600" alt="Tiburón de Groenlandia" class="rounded-md shadow-md mb-4 object-cover w-full h-60">
-            <h2 class="text-lg font-semibold underline hover:text-green-700">
-            Y si el tiburón de Groenlandia no ayudara a vivir más años
-            </h2>
+    <div class="relative z-10 w-full max-w-6xl">
+        <h1 class="text-3xl font-bold text-green-700 mb-6">Noticias Ambientales</h1>
+            <!-- Navegación superior de secciones -->
+            <div class="flex flex-wrap gap-4 mb-8">
+                <a routerLink="/cuidemos" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                    <i class="fas fa-leaf text-xl"></i>
+                    <span>Cuidado de Plantas</span>
+                </a>
+                <a routerLink="/noticias" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                    <i class="fas fa-newspaper text-xl"></i>
+                    <span>Noticias</span>
+                </a>
+                <button class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
+                    <i class="fas fa-map-marker-alt text-xl"></i>
+                    <span>Ubicaciones verdes</span>
+                </button>
+            </div>
+        
+            <!-- Navegación carrusel
+            <div class="flex justify-between w-full max-w-4xl text-gray-700 font-semibold mb-6">
+            <button class="hover:text-green-600">← Previous</button>
+            <button class="hover:text-green-600">Next →</button>
+            </div> -->
+        
+            <!-- Contenedor de noticias -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+            <!-- Noticia 1 -->
+            <div class="text-center">
+                <img src="https://imagenes.20minutos.es/files/image_990_v3/uploads/imagenes/2023/10/08/limpieza-playas-tras-la-dana-en-valencia.jpeg" alt="Limpieza de playa" class="rounded-md shadow-md mb-4 object-cover w-full h-60">
+                <h2 class="text-lg font-semibold underline hover:text-green-700">
+                Así es la lucha por recuperar el litoral valenciano meses después de la Dana
+                </h2>
+            </div>
+        
+            <!-- Noticia 2 -->
+            <div class="text-center">
+                <img src="https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic515213.jpg?w=1600" alt="Tiburón de Groenlandia" class="rounded-md shadow-md mb-4 object-cover w-full h-60">
+                <h2 class="text-lg font-semibold underline hover:text-green-700">
+                Y si el tiburón de Groenlandia no ayudara a vivir más años
+                </h2>
+            </div>
         </div>
     </div>
 </div>
