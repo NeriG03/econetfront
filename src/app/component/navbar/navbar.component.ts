@@ -1,17 +1,30 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { itemNavbar } from '../../interfaces/interface';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
-  styles: []
+  styles: [`
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  `],
+  standalone: true
 })
 export class NavbarComponent {
+  isMobileMenuOpen: boolean = false;
+  
   listaMenu: itemNavbar[]=[
     {
-      title: 'home',
+      title: 'Home',
       url: '/home'
     },
     // {
@@ -23,16 +36,27 @@ export class NavbarComponent {
     //   url: '/noticias'
     // }
     {
-      title: 'contáctanos',
+      title: 'Contacto',
       url: '/contacto'
     },
     {
-      title: 'login',
+      title: 'Iniciar sesión',
       url: '/login'
     },
     {
-      title: 'register',
+      title: 'Registro',
       url: '/register'
     }
   ]
+
+  constructor(private router: Router) {}
+
+  shouldShowNavbar(): boolean {
+    const currentUrl = this.router.url;
+    return !currentUrl.includes('/login') && !currentUrl.includes('/register');
+  }
+  
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 }
