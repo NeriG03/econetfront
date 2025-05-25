@@ -1,0 +1,718 @@
+<!-- Admin Manuales Page -->
+<div class="min-h-screen bg-gray-50 p-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-green-800">Gestión de Manuales</h1>
+        <p class="text-gray-600 mt-2">
+          Administra todos los manuales de cuidado de plantas
+        </p>
+      </div>
+      <button
+        (click)="openCreateModal()"
+        class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Crear Manual
+      </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-md">
+      <div class="relative">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="searchManuales()"
+          placeholder="Buscar por nombre de planta..."
+          class="w-full px-4 py-3 pl-10 rounded-lg border-2 border-green-300 focus:border-green-600 focus:outline-none shadow-sm text-gray-800"
+        />
+        <svg
+          class="w-5 h-5 text-green-600 absolute left-3 top-4"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+    <div
+      class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"
+    ></div>
+  </div>
+
+  <!-- Manuales Grid -->
+  <div
+    *ngIf="!isLoading"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+  >
+    <div
+      *ngFor="let manual of filteredManuales"
+      (click)="openViewModal(manual)"
+      class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105 border border-green-100 hover:border-green-300"
+    >
+      <!-- Image -->
+      <div class="relative h-48 overflow-hidden">
+        <img
+          [src]="manual.imagen"
+          [alt]="manual.planta"
+          class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+        />
+        <div
+          class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-lg text-xs font-medium"
+        >
+          Manual #{{ manual.id }}
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="p-4">
+        <h3 class="text-xl font-bold text-green-800 mb-2 truncate">
+          {{ manual.planta }}
+        </h3>
+
+        <!-- Quick Info -->
+        <div class="space-y-2 text-sm text-gray-600">
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-4 h-4 text-yellow-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="truncate">{{ manual.luz }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-4 h-4 text-blue-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.05 3.636a1 1 0 010 1.414 7 7 0 000 9.9 1 1 0 11-1.414 1.414 9 9 0 010-12.728 1 1 0 011.414 0zm9.9 0a1 1 0 011.414 0 9 9 0 010 12.728 1 1 0 11-1.414-1.414 7 7 0 000-9.9 1 1 0 010-1.414zM7.879 6.464a1 1 0 010 1.414 3 3 0 000 4.243 1 1 0 11-1.415 1.414 5 5 0 010-7.07 1 1 0 011.415 0zm4.242 0a1 1 0 011.415 0 5 5 0 010 7.072 1 1 0 01-1.415-1.415 3 3 0 000-4.242 1 1 0 010-1.415zM10 9a1 1 0 011 1v.01a1 1 0 11-2 0V10a1 1 0 011-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="truncate">{{ manual.riego }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-4 h-4 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="truncate">{{ manual.temperatura }}</span>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div
+          class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100"
+        >
+          <button
+            (click)="$event.stopPropagation(); openEditModal(manual)"
+            class="text-green-600 hover:text-green-800 font-medium text-sm flex items-center gap-1 transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+              ></path>
+            </svg>
+            Editar
+          </button>
+          <button
+            (click)="$event.stopPropagation(); openDeleteModal(manual)"
+            class="text-red-600 hover:text-red-800 font-medium text-sm flex items-center gap-1 transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+                clip-rule="evenodd"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!isLoading && filteredManuales.length === 0"
+    class="text-center py-12"
+  >
+    <svg
+      class="w-24 h-24 text-gray-400 mx-auto mb-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      ></path>
+    </svg>
+    <h3 class="text-xl font-medium text-gray-500 mb-2">No hay manuales</h3>
+    <p class="text-gray-400 mb-4">
+      <span *ngIf="searchTerm"
+        >No se encontraron manuales que coincidan con "{{ searchTerm }}"</span
+      >
+      <span *ngIf="!searchTerm">Aún no has creado ningún manual</span>
+    </p>
+    <button
+      *ngIf="!searchTerm"
+      (click)="openCreateModal()"
+      class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
+    >
+      Crear tu primer manual
+    </button>
+  </div>
+</div>
+
+<!-- Modal de Visualización -->
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+>
+  <div
+    class="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-y-auto"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+      <h2 class="text-2xl font-bold text-green-800">
+        {{ selectedManual?.planta }}
+      </h2>
+      <button
+        (click)="closeAllModals()"
+        class="text-gray-500 hover:text-gray-700"
+      >
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Image -->
+        <div class="space-y-4">
+          <img
+            [src]="selectedManual?.imagen"
+            [alt]="selectedManual?.planta"
+            class="w-full h-64 object-cover rounded-lg shadow-md"
+          />
+
+          <!-- Action Buttons -->
+          <div class="flex gap-4">
+            <button
+              (click)="openEditModal(selectedManual!)"
+              class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                ></path>
+              </svg>
+              Editar
+            </button>
+            <button
+              (click)="openDeleteModal(selectedManual!)"
+              class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+                  clip-rule="evenodd"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 gap-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4
+                class="font-semibold text-green-700 flex items-center gap-2 mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-yellow-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Luz
+              </h4>
+              <p class="text-gray-700">{{ selectedManual?.luz }}</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4
+                class="font-semibold text-green-700 flex items-center gap-2 mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-blue-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 3.636a1 1 0 010 1.414 7 7 0 000 9.9 1 1 0 11-1.414 1.414 9 9 0 010-12.728 1 1 0 011.414 0zm9.9 0a1 1 0 011.414 0 9 9 0 010 12.728 1 1 0 11-1.414-1.414 7 7 0 000-9.9 1 1 0 010-1.414zM7.879 6.464a1 1 0 010 1.414 3 3 0 000 4.243 1 1 0 11-1.415 1.414 5 5 0 010-7.07 1 1 0 011.415 0zm4.242 0a1 1 0 011.415 0 5 5 0 010 7.072 1 1 0 01-1.415-1.415 3 3 0 000-4.242 1 1 0 010-1.415zM10 9a1 1 0 011 1v.01a1 1 0 11-2 0V10a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Riego
+              </h4>
+              <p class="text-gray-700">{{ selectedManual?.riego }}</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4
+                class="font-semibold text-green-700 flex items-center gap-2 mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Humedad
+              </h4>
+              <p class="text-gray-700">{{ selectedManual?.humedad }}</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4
+                class="font-semibold text-green-700 flex items-center gap-2 mb-2"
+              >
+                <svg
+                  class="w-5 h-5 text-red-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Temperatura
+              </h4>
+              <p class="text-gray-700">{{ selectedManual?.temperatura }}</p>
+            </div>
+          </div>
+
+          <!-- Additional Information -->
+          <div class="space-y-4 mt-6">
+            <div>
+              <h4 class="font-semibold text-green-700 mb-2">Abono</h4>
+              <p class="text-gray-700">{{ selectedManual?.abono }}</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-green-700 mb-2">Poda</h4>
+              <p class="text-gray-700">{{ selectedManual?.poda }}</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-green-700 mb-2">Trasplante</h4>
+              <p class="text-gray-700">{{ selectedManual?.trasplante }}</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-green-700 mb-2">Enfermedades</h4>
+              <p class="text-gray-700">{{ selectedManual?.enfermedades }}</p>
+            </div>
+            <div *ngIf="selectedManual?.otros">
+              <h4 class="font-semibold text-green-700 mb-2">Otros</h4>
+              <p class="text-gray-700">{{ selectedManual?.otros }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Creación/Edición -->
+<div
+  *ngIf="isCreateModalOpen || isEditModalOpen"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+>
+  <div
+    class="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-y-auto"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+      <h2 class="text-2xl font-bold text-green-800">
+        {{ isCreateModalOpen ? "Crear Nuevo Manual" : "Editar Manual" }}
+      </h2>
+      <button
+        (click)="closeAllModals()"
+        class="text-gray-500 hover:text-gray-700"
+      >
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form
+      [formGroup]="manualForm"
+      (ngSubmit)="isCreateModalOpen ? createManual() : updateManual()"
+      class="p-6"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Column 1 -->
+        <div class="space-y-4">
+          <!-- Planta -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Nombre de la Planta *</label
+            >
+            <input
+              type="text"
+              formControlName="planta"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('planta')"
+              placeholder="Ej: Rosa, Cactus, Helecho..."
+            />
+            <span
+              *ngIf="isFieldInvalid('planta')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("planta") }}</span
+            >
+          </div>
+
+          <!-- Luz -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Luz *</label
+            >
+            <textarea
+              formControlName="luz"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('luz')"
+              placeholder="Describe los requerimientos de luz..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('luz')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("luz") }}</span
+            >
+          </div>
+
+          <!-- Riego -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Riego *</label
+            >
+            <textarea
+              formControlName="riego"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('riego')"
+              placeholder="Describe la frecuencia y cantidad de riego..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('riego')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("riego") }}</span
+            >
+          </div>
+
+          <!-- Humedad -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Humedad *</label
+            >
+            <textarea
+              formControlName="humedad"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('humedad')"
+              placeholder="Describe los requerimientos de humedad..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('humedad')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("humedad") }}</span
+            >
+          </div>
+
+          <!-- Temperatura -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Temperatura *</label
+            >
+            <textarea
+              formControlName="temperatura"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('temperatura')"
+              placeholder="Describe el rango de temperatura ideal..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('temperatura')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("temperatura") }}</span
+            >
+          </div>
+
+          <!-- Imagen -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >URL de Imagen *</label
+            >
+            <input
+              type="url"
+              formControlName="imagen"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('imagen')"
+              placeholder="https://ejemplo.com/imagen.jpg"
+            />
+            <span
+              *ngIf="isFieldInvalid('imagen')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("imagen") }}</span
+            >
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="space-y-4">
+          <!-- Abono -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Abono *</label
+            >
+            <textarea
+              formControlName="abono"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('abono')"
+              placeholder="Describe el tipo y frecuencia de abono..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('abono')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("abono") }}</span
+            >
+          </div>
+
+          <!-- Poda -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Poda *</label
+            >
+            <textarea
+              formControlName="poda"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('poda')"
+              placeholder="Describe cuándo y cómo podar..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('poda')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("poda") }}</span
+            >
+          </div>
+
+          <!-- Trasplante -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Trasplante *</label
+            >
+            <textarea
+              formControlName="trasplante"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('trasplante')"
+              placeholder="Describe cuándo y cómo trasplantar..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('trasplante')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("trasplante") }}</span
+            >
+          </div>
+
+          <!-- Enfermedades -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Enfermedades *</label
+            >
+            <textarea
+              formControlName="enfermedades"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              [class.border-red-500]="isFieldInvalid('enfermedades')"
+              placeholder="Describe plagas y enfermedades comunes..."
+            ></textarea>
+            <span
+              *ngIf="isFieldInvalid('enfermedades')"
+              class="text-red-500 text-xs mt-1"
+              >{{ getFieldError("enfermedades") }}</span
+            >
+          </div>
+
+          <!-- Otros -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Otros (Opcional)</label
+            >
+            <textarea
+              formControlName="otros"
+              rows="3"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              placeholder="Información adicional o consejos especiales..."
+            ></textarea>
+          </div>
+
+          <!-- Preview de imagen -->
+          <div *ngIf="manualForm.get('imagen')?.value" class="mt-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Vista previa:</label
+            >
+            <img
+              [src]="manualForm.get('imagen')?.value"
+              alt="Preview"
+              class="w-full h-32 object-cover rounded-lg border"
+              (error)="hideImage($event)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
+        <button
+          type="button"
+          (click)="closeAllModals()"
+          class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="manualForm.invalid || isLoading"
+          class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+        >
+          <span
+            *ngIf="isLoading"
+            class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"
+          ></span>
+          {{ isCreateModalOpen ? "Crear Manual" : "Actualizar Manual" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div
+  *ngIf="isDeleteModalOpen"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+>
+  <div class="bg-white rounded-xl max-w-md w-full">
+    <!-- Modal Header -->
+    <div class="p-6 border-b border-gray-200">
+      <h2 class="text-xl font-bold text-red-600">Confirmar Eliminación</h2>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6">
+      <p class="text-gray-700 mb-4">
+        ¿Estás seguro de que deseas eliminar el manual de
+        <strong class="text-green-700">{{ selectedManual?.planta }}</strong
+        >?
+      </p>
+      <p class="text-sm text-gray-500">Esta acción no se puede deshacer.</p>
+    </div>
+
+    <!-- Modal Actions -->
+    <div class="flex justify-end gap-4 p-6 border-t border-gray-200">
+      <button
+        type="button"
+        (click)="closeAllModals()"
+        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="deleteManual()"
+        [disabled]="isLoading"
+        class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+      >
+        <span
+          *ngIf="isLoading"
+          class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"
+        ></span>
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,75 +1,576 @@
-<div class="bg-white min-h-screen flex flex-col items-center pt-10 px-6">
-    <!-- Imagen de fondo -->
-    <div class="absolute inset-0 z-0">
-        <img src="https://iili.io/3aFJF7n.png" alt="Fondo Econet" class="w-full h-full object-cover opacity-70" />
+<!-- Enhanced Cuidemos Page with Plant Manuals -->
+<div class="min-h-screen relative overflow-hidden">
+  <!-- Animated Background with Parallax -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://iili.io/3aFJF7n.png"
+      alt="EcoNet Cuidemos Background"
+      class="w-full h-full object-cover opacity-50 scale-110 transition-transform duration-1000"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-50/40 via-sky-50/30 to-green-100/50"
+    ></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="particle particle-1"></div>
+  <div class="particle particle-2"></div>
+  <div class="particle particle-3"></div>
+  <div class="particle particle-4"></div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 p-6">
+    <!-- Hero Section -->
+    <div class="max-w-7xl mx-auto mb-16">
+      <div
+        class="backdrop-blur-lg bg-white/20 rounded-3xl p-12 shadow-2xl border border-white/30 pulse-glow bounce-in text-center"
+      >
+        <h1 class="text-6xl font-bold gradient-text mb-6 wave">
+          Manuales de Plantas
+        </h1>
+        <p
+          class="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed slide-up"
+        >
+          Descubre nuestra colección completa de manuales de cuidado para
+          plantas. Aprende todo lo que necesitas saber para mantener tus plantas
+          saludables y hermosas.
+        </p>
+        <div class="mt-8 flex justify-center">
+          <div class="w-24 h-1 gradient-bg rounded-full"></div>
+        </div>
+      </div>
     </div>
-    <!-- Encabezado -->
-    <div class="relative z-10 w-full max-w-6xl">
-        <h1 class="text-3xl font-bold text-green-700 mb-6">Cuidado de Plantas</h1>
-            <!-- Navegación superior de secciones -->
-            <div class="flex flex-wrap gap-4 mb-8">
-                <a routerLink="/cuidemos" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
-                    <i class="fas fa-leaf text-xl"></i>
-                    <span>Cuidado de Plantas</span>
-                </a>
-                <a routerLink="/noticias" class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
-                    <i class="fas fa-newspaper text-xl"></i>
-                    <span>Noticias</span>
-                </a>
-                <button class="group flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl shadow-lg border-2 border-green-400 hover:border-white hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 font-semibold">
-                    <i class="fas fa-map-marker-alt text-xl"></i>
-                    <span>Ubicaciones verdes</span>
+
+    <!-- Search and Filter Section -->
+    <div class="max-w-7xl mx-auto mb-12 scroll-reveal">
+      <div
+        class="glass-effect rounded-2xl p-8 shadow-xl border border-white/30"
+      >
+        <div class="flex flex-col md:flex-row gap-6 items-center">
+          <!-- Search Bar -->
+          <div class="flex-1 w-full">
+            <div class="relative">
+              <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                (input)="searchManuales()"
+                placeholder="Buscar plantas, cuidados, características..."
+                class="input-focus w-full px-6 py-4 pl-14 rounded-xl border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-lg text-gray-800 bg-white/80 backdrop-blur-sm"
+              />
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center">
+                <i class="fas fa-search text-emerald-600 text-xl"></i>
+              </div>
+              <div
+                *ngIf="searchTerm"
+                class="absolute inset-y-0 right-0 pr-4 flex items-center"
+              >
+                <button
+                  (click)="searchTerm = ''; searchManuales()"
+                  class="text-gray-400 hover:text-emerald-600 transition-colors"
+                >
+                  <i class="fas fa-times text-lg"></i>
                 </button>
+              </div>
             </div>
-            
-            <!-- Buscador -->
-            <div class="mb-8 w-full">
-                <div class="relative">
-                    <input 
-                        type="text" 
-                        [(ngModel)]="termBusqueda" 
-                        placeholder="Buscar plantas por nombre..." 
-                        class="w-full px-4 py-3 rounded-lg border-2 border-green-400 focus:border-green-600 focus:outline-none shadow-md text-gray-800"
-                    >
-                    <i class="fas fa-search absolute right-4 top-3.5 text-green-600"></i>
-                </div>
+          </div>
+
+          <!-- Results Counter -->
+          <div class="text-center">
+            <div
+              class="bg-emerald-100 text-emerald-800 px-6 py-3 rounded-xl font-semibold"
+            >
+              <i class="fas fa-seedling mr-2"></i>
+              {{ filteredManuales.length }} manual{{
+                filteredManuales.length !== 1 ? "es" : ""
+              }}
+              <span *ngIf="searchTerm" class="text-emerald-600">
+                encontrado{{ filteredManuales.length !== 1 ? "s" : "" }}
+              </span>
             </div>
-            
-            <!-- Grid de tarjetas de plantas -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <div *ngFor="let planta of plantasFiltradas" class="bg-gray-100 rounded-lg shadow-lg p-4 text-center">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-3">{{ planta.nombre }}</h2>
-                    <img [src]="planta.imagen" [alt]="planta.nombre" class="mx-auto mb-3 rounded-md shadow-md h-40 object-cover w-full">
-                    
-                    <div class="text-left text-sm">
-                        <div class="accordion">
-                            <details class="mb-1">
-                                <summary class="font-bold text-gray-700 cursor-pointer hover:text-green-600">Cuidados básicos</summary>
-                                <div class="pl-3 pt-1">
-                                    <p><span class="font-semibold">Luz:</span> {{ planta.luz }}</p>
-                                    <p><span class="font-semibold">Riego:</span> {{ planta.riego }}</p>
-                                    <p><span class="font-semibold">Humedad:</span> {{ planta.humedad }}</p>
-                                    <p><span class="font-semibold">Temperatura:</span> {{ planta.temperatura }}</p>
-                                </div>
-                            </details>
-                            <details class="mb-1">
-                                <summary class="font-bold text-gray-700 cursor-pointer hover:text-green-600">Mantenimiento</summary>
-                                <div class="pl-3 pt-1">
-                                    <p><span class="font-semibold">Abono:</span> {{ planta.abono }}</p>
-                                    <p><span class="font-semibold">Poda:</span> {{ planta.poda }}</p>
-                                    <p><span class="font-semibold">Transplante:</span> {{ planta.transplante }}</p>
-                                </div>
-                            </details>
-                            <details class="mb-1">
-                                <summary class="font-bold text-gray-700 cursor-pointer hover:text-green-600">Problemas comunes</summary>
-                                <div class="pl-3 pt-1">
-                                    <p><span class="font-semibold">Enfermedades:</span> {{ planta.enfermedades }}</p>
-                                    <p><span class="font-semibold">Otros:</span> {{ planta.otros }}</p>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+        </div>
+
+        <!-- Search Tips -->
+        <div *ngIf="!searchTerm" class="mt-6 text-center">
+          <p class="text-gray-600 text-sm">
+            💡 Puedes buscar por nombre de planta, tipo de luz, frecuencia de
+            riego, temperatura, y más...
+          </p>
+        </div>
+      </div>
     </div>
+
+    <!-- Loading Spinner -->
+    <div
+      *ngIf="isLoading"
+      class="flex justify-center items-center py-20 scroll-reveal"
+    >
+      <div class="text-center">
+        <div
+          class="animate-spin rounded-full h-16 w-16 border-b-4 border-emerald-600 mx-auto mb-4"
+        ></div>
+        <p class="text-gray-600 text-lg">Cargando manuales...</p>
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div
+      *ngIf="!isLoading && filteredManuales.length === 0 && searchTerm"
+      class="max-w-4xl mx-auto text-center py-20 scroll-reveal"
+    >
+      <div
+        class="glass-effect rounded-3xl p-12 shadow-xl border border-white/30"
+      >
+        <i class="fas fa-search text-6xl text-gray-400 mb-6"></i>
+        <h3 class="text-2xl font-bold text-gray-700 mb-4">
+          No se encontraron resultados
+        </h3>
+        <p class="text-gray-600 mb-6">
+          No encontramos manuales que coincidan con "{{ searchTerm }}". Intenta
+          con otros términos de búsqueda.
+        </p>
+        <button
+          (click)="searchTerm = ''; searchManuales()"
+          class="btn-hover gradient-bg text-white px-8 py-3 rounded-xl shadow-lg font-semibold"
+        >
+          <i class="fas fa-redo mr-2"></i>
+          Ver todos los manuales
+        </button>
+      </div>
+    </div>
+
+    <!-- Manuales Grid -->
+    <div
+      *ngIf="!isLoading && filteredManuales.length > 0"
+      class="max-w-7xl mx-auto scroll-reveal"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          *ngFor="let manual of filteredManuales; let i = index"
+          class="card-hover glass-effect rounded-3xl overflow-hidden shadow-xl border border-white/30 cursor-pointer"
+          [style.animation-delay]="i * 0.1 + 's'"
+          (click)="openModal(manual)"
+        >
+          <!-- Image Section -->
+          <div class="relative h-64 overflow-hidden">
+            <img
+              [src]="manual.imagen"
+              [alt]="manual.planta"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              onerror="this.src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500'"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+            ></div>
+            <div
+              class="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-semibold float"
+            >
+              <i class="fas fa-leaf mr-1"></i>
+              Manual #{{ manual.id }}
+            </div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <h3
+                class="text-2xl font-bold mb-1"
+                [innerHTML]="highlightSearchTerm(manual.planta)"
+              ></h3>
+            </div>
+          </div>
+
+          <!-- Content Section -->
+          <div class="p-6">
+            <!-- Quick Info Icons -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-sun text-yellow-600 text-sm"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wide">
+                    Luz
+                  </p>
+                  <p
+                    class="text-sm font-medium text-gray-700 truncate"
+                    [innerHTML]="
+                      highlightSearchTerm(getShortDescription(manual.luz, 30))
+                    "
+                  ></p>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-tint text-blue-600 text-sm"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wide">
+                    Riego
+                  </p>
+                  <p
+                    class="text-sm font-medium text-gray-700 truncate"
+                    [innerHTML]="
+                      highlightSearchTerm(getShortDescription(manual.riego, 30))
+                    "
+                  ></p>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-thermometer-half text-green-600 text-sm"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wide">
+                    Temperatura
+                  </p>
+                  <p
+                    class="text-sm font-medium text-gray-700 truncate"
+                    [innerHTML]="
+                      highlightSearchTerm(
+                        getShortDescription(manual.temperatura, 30)
+                      )
+                    "
+                  ></p>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-droplet text-purple-600 text-sm"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wide">
+                    Humedad
+                  </p>
+                  <p
+                    class="text-sm font-medium text-gray-700 truncate"
+                    [innerHTML]="
+                      highlightSearchTerm(
+                        getShortDescription(manual.humedad, 30)
+                      )
+                    "
+                  ></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button
+              class="btn-hover w-full gradient-bg text-white py-3 px-6 rounded-xl shadow-lg font-semibold text-lg flex items-center justify-center gap-3"
+            >
+              <i class="fas fa-book-open float"></i>
+              <span>Ver Manual Completo</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <!-- Shimmer Effect -->
+            <div
+              class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-3xl overflow-hidden pointer-events-none"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div
+      *ngIf="!isLoading && filteredManuales.length > 0"
+      class="max-w-4xl mx-auto mt-20 text-center scroll-reveal"
+    >
+      <div
+        class="glass-effect rounded-3xl p-12 shadow-2xl border border-white/30"
+      >
+        <h2 class="text-4xl font-bold gradient-text mb-6">
+          ¿No encuentras tu planta?
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          Nuestros expertos están constantemente agregando nuevos manuales.
+          ¡Contáctanos para sugerir una planta!
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6">
+          <a
+            routerLink="/contacto"
+            class="btn-hover gradient-bg text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-lg flex items-center gap-3"
+          >
+            <i class="fas fa-envelope float"></i>
+            <span>Sugerir Planta</span>
+          </a>
+
+          <a
+            routerLink="/home"
+            class="btn-hover bg-white/20 backdrop-blur-sm text-gray-700 px-8 py-4 rounded-2xl shadow-xl font-bold text-lg border border-white/30 flex items-center gap-3"
+          >
+            <i class="fas fa-home"></i>
+            <span>Volver al Inicio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Spacing -->
+    <div class="h-20"></div>
+  </div>
+</div>
+
+<!-- Modal de Detalles del Manual -->
+<div
+  *ngIf="isModalOpen && selectedManual"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+  (click)="closeModal()"
+>
+  <div
+    class="glass-effect rounded-3xl max-w-6xl w-full modal-content shadow-2xl border border-white/30 bounce-in"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-8 border-b border-white/20">
+      <div class="flex items-center space-x-4">
+        <div
+          class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center float"
+        >
+          <i class="fas fa-leaf text-white text-xl"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold gradient-text">
+            {{ selectedManual.planta }}
+          </h2>
+          <p class="text-gray-600">Manual de Cuidado Completo</p>
+        </div>
+      </div>
+      <button
+        (click)="closeModal()"
+        class="text-gray-500 hover:text-gray-700 transition-colors p-2 hover:bg-white/20 rounded-full"
+      >
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Image Section -->
+        <div class="space-y-6">
+          <div class="relative">
+            <img
+              [src]="selectedManual.imagen"
+              [alt]="selectedManual.planta"
+              class="w-full h-80 object-cover rounded-2xl shadow-lg"
+              onerror="this.src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500'"
+            />
+            <div
+              class="absolute top-4 right-4 bg-emerald-600 text-white px-4 py-2 rounded-full font-semibold"
+            >
+              Manual #{{ selectedManual.id }}
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center"
+            >
+              <i class="fas fa-calendar-alt text-emerald-600 text-2xl mb-2"></i>
+              <p class="text-sm text-gray-600">Última actualización</p>
+              <p class="font-semibold text-gray-800">Reciente</p>
+            </div>
+            <div
+              class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center"
+            >
+              <i class="fas fa-star text-yellow-500 text-2xl mb-2"></i>
+              <p class="text-sm text-gray-600">Dificultad</p>
+              <p class="font-semibold text-gray-800">Intermedio</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="space-y-6">
+          <!-- Luz -->
+          <div
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          >
+            <div class="flex items-center space-x-3 mb-4">
+              <div
+                class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-sun text-yellow-600 text-lg"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800">Luz</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              {{ selectedManual.luz }}
+            </p>
+          </div>
+
+          <!-- Riego -->
+          <div
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          >
+            <div class="flex items-center space-x-3 mb-4">
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-tint text-blue-600 text-lg"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800">Riego</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              {{ selectedManual.riego }}
+            </p>
+          </div>
+
+          <!-- Humedad -->
+          <div
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          >
+            <div class="flex items-center space-x-3 mb-4">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-droplet text-purple-600 text-lg"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800">Humedad</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              {{ selectedManual.humedad }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Temperatura -->
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-thermometer-half text-green-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Temperatura</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            {{ selectedManual.temperatura }}
+          </p>
+        </div>
+
+        <!-- Abono -->
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-seedling text-orange-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Abono</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            {{ selectedManual.abono }}
+          </p>
+        </div>
+
+        <!-- Poda -->
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-cut text-red-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Poda</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">{{ selectedManual.poda }}</p>
+        </div>
+
+        <!-- Trasplante -->
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-exchange-alt text-indigo-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Trasplante</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            {{ selectedManual.trasplante }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Enfermedades -->
+      <div class="mt-6">
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-bug text-pink-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">
+              Enfermedades y Plagas
+            </h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            {{ selectedManual.enfermedades }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Otros (si existe) -->
+      <div *ngIf="selectedManual.otros" class="mt-6">
+        <div
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+        >
+          <div class="flex items-center space-x-3 mb-4">
+            <div
+              class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"
+            >
+              <i class="fas fa-info-circle text-gray-600 text-lg"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">
+              Información Adicional
+            </h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            {{ selectedManual.otros }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="mt-8 flex justify-center space-x-4">
+        <button
+          (click)="closeModal()"
+          class="btn-hover gradient-bg text-white px-8 py-3 rounded-xl shadow-lg font-semibold flex items-center gap-3"
+        >
+          <i class="fas fa-check"></i>
+          <span>Entendido</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
