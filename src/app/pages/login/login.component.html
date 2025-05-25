@@ -1,40 +1,216 @@
-<!-- component -->
-<!-- component -->
-<div class="bg-sky-100 flex justify-center items-center h-screen">
-    <!-- Left: Image -->
-<div class="w-1/2 h-screen hidden lg:block">
-  <img src="https://iili.io/3YmE9cb.png" alt="Placeholder Image" class="object-cover w-full h-full">
-</div>
-<!-- Right: Login Form -->
-<div class= "lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-  <h1 class="text-2xl font-semibold mb-4">Iniciar Sesión</h1>
-  <form action="#" method="POST">
-    <!-- Username Input -->
-    <div class="mb-4" >
-      <label for="username" class="block text-gray-600">Usuario</label>
-      <input type="text" id="username" name="username" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+<!-- Login Component with FormBuilder and Animations -->
+<div
+  class="bg-gradient-to-br from-sky-50 to-emerald-50 flex justify-center items-center min-h-screen fade-in"
+>
+  <!-- Left: Image -->
+  <div class="w-1/2 h-screen hidden lg:block relative overflow-hidden">
+    <img
+      src="https://iili.io/3YmE9cb.png"
+      alt="EcoNet - Cuidemos el planeta"
+      class="object-cover w-full h-full transition-transform duration-700 hover:scale-105"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-sky-600/20"
+    ></div>
+    <div class="absolute bottom-8 left-8 text-white">
+      <h2 class="text-3xl font-bold mb-2 slide-up">EcoNet</h2>
+      <p class="text-lg opacity-90 slide-up">
+        Conectando por un futuro sostenible
+      </p>
     </div>
-    <!-- Password Input -->
-    <div class="mb-4">
-      <label for="password" class="block text-gray-800">Contraseña</label>
-      <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
-    </div>
-    <!-- Remember Me Checkbox -->
-    <div class="mb-4 flex items-center">
-      <input type="checkbox" id="remember" name="remember" class="text-red-500">
-      <label for="remember" class="text-green-900 ml-2">Recordarme</label>
-    </div>
-    <!-- Forgot Password Link -->
-    <div class="mb-6 text-blue-500">
-      <a href="#" class="hover:underline">¿Olvidaste tu contraseña?</a>
-    </div>
-    <!-- Login Button -->
-    <button routerLink="/cuidemos" type="submit" class="bg-green-600 hover:bg-green-800 text-white font-semibold rounded-md py-2 px-4 w-full">Iniciar Sesión</button>
-  </form>
-  <!-- Sign up  Link -->
-  <div class="mt-6 text-white-500 text-center">
-    ¿No tienes cuenta todavía?<a routerLink="/register" class="hover:underline text-blue-500" > Regístrate</a>
   </div>
-  
-</div>
+
+  <!-- Right: Login Form -->
+  <div class="lg:p-36 md:p-52 sm:p-20 p-8 w-full lg:w-1/2">
+    <div class="max-w-md mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-8 bounce-in">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">
+          ¡Bienvenido de vuelta!
+        </h1>
+        <p class="text-gray-600">
+          Inicia sesión para continuar cuidando nuestro planeta
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="space-y-6 slide-up"
+      >
+        <!-- Email Input -->
+        <div class="space-y-2">
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Correo electrónico
+          </label>
+          <div class="relative">
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300"
+              [class.border-red-500]="getFieldError('email')"
+              placeholder="tu@email.com"
+              autocomplete="email"
+            />
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <svg
+                class="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div
+            *ngIf="getFieldError('email')"
+            class="text-red-500 text-sm error-message"
+          >
+            {{ getFieldError("email") }}
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-2">
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Contraseña
+          </label>
+          <div class="relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 pr-12"
+              [class.border-red-500]="getFieldError('password')"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-emerald-600 transition-colors duration-200"
+            >
+              <svg
+                *ngIf="!showPassword"
+                class="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                ></path>
+              </svg>
+              <svg
+                *ngIf="showPassword"
+                class="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div
+            *ngIf="getFieldError('password')"
+            class="text-red-500 text-sm error-message"
+          >
+            {{ getFieldError("password") }}
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="remember"
+              formControlName="remember"
+              class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded transition-colors duration-200"
+            />
+            <label
+              for="remember"
+              class="ml-2 block text-sm text-gray-700 hover:text-emerald-600 transition-colors duration-200"
+            >
+              Recordarme
+            </label>
+          </div>
+          <div class="text-sm">
+            <a
+              href="#"
+              class="font-medium text-emerald-600 hover:text-emerald-500 transition-colors duration-200"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+        </div>
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          [disabled]="isLoading"
+          class="btn-hover w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-emerald-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        >
+          <svg
+            *ngIf="isLoading"
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          {{ isLoading ? "Iniciando sesión..." : "Iniciar Sesión" }}
+        </button>
+      </form>
+
+      <!-- Sign up Link -->
+      <div class="mt-8 text-center slide-up">
+        <p class="text-sm text-gray-600">
+          ¿No tienes cuenta todavía?
+          <a
+            routerLink="/register"
+            class="font-medium text-emerald-600 hover:text-emerald-500 transition-colors duration-200 ml-1"
+          >
+            Regístrate aquí
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

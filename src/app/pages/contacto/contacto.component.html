@@ -1,63 +1,441 @@
+<!-- Enhanced Contact Page with Advanced Animations -->
+<div class="min-h-screen relative overflow-hidden">
+  <!-- Animated Background with Parallax -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://iili.io/3aFJF7n.png"
+      alt="EcoNet Contact Background"
+      class="w-full h-full object-cover opacity-50 scale-110 transition-transform duration-1000"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-50/40 via-sky-50/30 to-green-100/50"
+    ></div>
+  </div>
 
-<div class="bg-white min-h-screen pt-10 px-6">
-    <!-- Imagen de fondo -->
-    <div class="absolute inset-0 z-0">
-        <img src="https://iili.io/3aFJF7n.png" alt="Fondo Econet" class="w-full h-full object-cover opacity-70" />
-    </div>
-    <!-- Encabezado -->
-    <div class="relative z-10 w-full max-w-6xl">
-        <h1 class="text-3xl font-bold text-green-700 text-center mb-10">Contáctanos</h1>
+  <!-- Floating Particles -->
+  <div class="particle particle-1"></div>
+  <div class="particle particle-2"></div>
+  <div class="particle particle-3"></div>
+  <div class="particle particle-4"></div>
 
-            <!-- Grid de colaboradores -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            
-            <!-- Colaborador 1 -->
-            <div class="bg-gray-100 rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Antonio Bautista Cuevas</h2>
-                <div class="flex items-center space-x-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Colaborador 1" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="text-sm font-semibold text-gray-700">Colaborador 1</p>
-                    <p class="text-sm text-gray-600">014421768&#64;ulsaoaxaca.edu.mx</p>
-                </div>
-                </div>
-            </div>
-        
-            <!-- Colaborador 2 -->
-            <div class="bg-gray-100 rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Vicente Barrera Colin</h2>
-                <div class="flex items-center space-x-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Colaborador 2" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="text-sm font-semibold text-gray-700">Colaborador 2</p>
-                    <p class="text-sm text-gray-600">014433600&#64;ulsaoaxaca.edu.mx</p>
-                </div>
-                </div>
-            </div>
-        
-            <!-- Colaborador 3 -->
-            <div class="bg-gray-100 rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold text-gray-80noo0 mb-2">Neri Uriel Sosa Villanueva</h2>
-                <div class="flex items-center space-x-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Colaborador 3" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="text-sm font-semibold text-gray-700">Colaborador 3</p>
-                    <p class="text-sm text-gray-600">014430660&#64;ulsaoaxaca.edu.mx</p>
-                </div>
-                </div>
-            </div>
-        
-            <!-- Colaborador 4 -->
-            <div class="bg-gray-100 rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Diego Sosa Ramírez</h2>
-                <div class="flex items-center space-x-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Colaborador 4" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="text-sm font-semibold text-gray-700">Colaborador 4</p>
-                    <p class="text-sm text-gray-600">014430779&#64;ulsaoaxaca.edu.mx</p>
-                </div>
-                </div>
-            </div>
+  <!-- Main Content -->
+  <div class="relative z-10 p-6">
+    <!-- Hero Section -->
+    <div class="max-w-6xl mx-auto mb-16">
+      <div
+        class="backdrop-blur-lg bg-white/20 rounded-3xl p-12 shadow-2xl border border-white/30 pulse-glow bounce-in text-center"
+      >
+        <h1 class="text-6xl font-bold gradient-text mb-6 wave">Contáctanos</h1>
+        <p
+          class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed slide-up"
+        >
+          ¿Tienes preguntas sobre EcoNet? ¿Quieres colaborar con nosotros?
+          Estamos aquí para ayudarte a crear un futuro más sostenible.
+        </p>
+        <div class="mt-8 flex justify-center">
+          <div class="w-24 h-1 gradient-bg rounded-full"></div>
         </div>
+      </div>
     </div>
+
+    <!-- Contact Info Cards -->
+    <div class="max-w-6xl mx-auto mb-16 scroll-reveal">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          *ngFor="let info of contactInfo; let i = index"
+          class="card-hover glass-effect rounded-2xl p-8 text-center"
+          [style.animation-delay]="i * 0.2 + 's'"
+        >
+          <div
+            class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 float"
+          >
+            <i [class]="info.icon" class="text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold gradient-text mb-2">{{ info.title }}</h3>
+          <p class="text-lg font-semibold text-gray-700 mb-2">
+            {{ info.value }}
+          </p>
+          <p class="text-gray-600">{{ info.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form and Team Section -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <!-- Contact Form -->
+      <div class="scroll-reveal slide-in-left">
+        <div
+          class="glass-effect rounded-3xl p-8 shadow-2xl border border-white/30"
+        >
+          <h2 class="text-3xl font-bold gradient-text mb-8 text-center">
+            Envíanos un Mensaje
+          </h2>
+
+          <form
+            [formGroup]="contactForm"
+            (ngSubmit)="onSubmit()"
+            class="space-y-6"
+          >
+            <!-- Name Input -->
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-700">
+                Nombre Completo
+              </label>
+              <div class="relative">
+                <input
+                  type="text"
+                  id="name"
+                  formControlName="name"
+                  class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-white/80"
+                  [class.border-red-500]="getFieldError('name')"
+                  placeholder="Tu nombre completo"
+                />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <i class="fas fa-user text-gray-400"></i>
+                </div>
+              </div>
+              <div
+                *ngIf="getFieldError('name')"
+                class="text-red-500 text-sm error-message"
+              >
+                {{ getFieldError("name") }}
+              </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="space-y-2">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Correo Electrónico
+              </label>
+              <div class="relative">
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-white/80"
+                  [class.border-red-500]="getFieldError('email')"
+                  placeholder="tu@email.com"
+                />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <i class="fas fa-envelope text-gray-400"></i>
+                </div>
+              </div>
+              <div
+                *ngIf="getFieldError('email')"
+                class="text-red-500 text-sm error-message"
+              >
+                {{ getFieldError("email") }}
+              </div>
+            </div>
+
+            <!-- Subject Input -->
+            <div class="space-y-2">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Asunto
+              </label>
+              <div class="relative">
+                <input
+                  type="text"
+                  id="subject"
+                  formControlName="subject"
+                  class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-white/80"
+                  [class.border-red-500]="getFieldError('subject')"
+                  placeholder="¿En qué podemos ayudarte?"
+                />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <i class="fas fa-tag text-gray-400"></i>
+                </div>
+              </div>
+              <div
+                *ngIf="getFieldError('subject')"
+                class="text-red-500 text-sm error-message"
+              >
+                {{ getFieldError("subject") }}
+              </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="space-y-2">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Mensaje
+              </label>
+              <textarea
+                id="message"
+                formControlName="message"
+                rows="5"
+                class="input-focus w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-white/80 resize-none"
+                [class.border-red-500]="getFieldError('message')"
+                placeholder="Cuéntanos más detalles sobre tu consulta..."
+              ></textarea>
+              <div
+                *ngIf="getFieldError('message')"
+                class="text-red-500 text-sm error-message"
+              >
+                {{ getFieldError("message") }}
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              [disabled]="isLoading"
+              class="btn-hover w-full gradient-bg text-white py-4 px-6 rounded-xl shadow-xl font-bold text-lg flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg
+                *ngIf="isLoading"
+                class="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <i *ngIf="!isLoading" class="fas fa-paper-plane float"></i>
+              <span>{{ isLoading ? "Enviando..." : "Enviar Mensaje" }}</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Quick Contact -->
+      <div class="scroll-reveal slide-in-right">
+        <div
+          class="glass-effect rounded-3xl p-8 shadow-2xl border border-white/30 h-full"
+        >
+          <h2 class="text-3xl font-bold gradient-text mb-8 text-center">
+            Contacto Rápido
+          </h2>
+
+          <div class="space-y-6">
+            <div
+              class="flex items-center space-x-4 p-4 bg-white/20 rounded-xl hover:bg-white/30 transition-all duration-300 cursor-pointer"
+              (click)="copyEmail('contact@econet.io')"
+            >
+              <div
+                class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center float"
+              >
+                <i class="fas fa-envelope text-white"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Email Principal</h3>
+                <p class="text-gray-600">contact&#64;econet.io</p>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center space-x-4 p-4 bg-white/20 rounded-xl hover:bg-white/30 transition-all duration-300"
+            >
+              <div
+                class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center float"
+                style="animation-delay: 0.5s"
+              >
+                <i class="fas fa-clock text-white"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Horario de Atención</h3>
+                <p class="text-gray-600">Lun - Vie: 9:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center space-x-4 p-4 bg-white/20 rounded-xl hover:bg-white/30 transition-all duration-300"
+            >
+              <div
+                class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center float"
+                style="animation-delay: 1s"
+              >
+                <i class="fas fa-reply text-white"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Tiempo de Respuesta</h3>
+                <p class="text-gray-600">Menos de 24 horas</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="mt-8 pt-8 border-t border-white/20">
+            <h3 class="text-lg font-semibold gradient-text mb-4 text-center">
+              Síguenos
+            </h3>
+            <div class="flex justify-center space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fab fa-twitter text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fab fa-facebook text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fab fa-instagram text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fab fa-linkedin text-white"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="max-w-7xl mx-auto scroll-reveal">
+      <div class="text-center mb-12">
+        <h2 class="text-5xl font-bold gradient-text mb-6">Nuestro Equipo</h2>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+          Conoce a los desarrolladores apasionados que hacen posible EcoNet
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          *ngFor="let member of teamMembers"
+          class="card-hover glass-effect rounded-3xl p-8 text-center cursor-pointer"
+          [style.animation-delay]="member.delay"
+          (click)="onMemberClick(member.id)"
+        >
+          <!-- Avatar with Animation -->
+          <div class="relative mb-6">
+            <div
+              class="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-xl"
+            >
+              <img
+                [src]="member.avatar"
+                [alt]="member.name"
+                class="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div
+              class="absolute -bottom-2 -right-2 w-8 h-8 gradient-bg rounded-full flex items-center justify-center rotate-slow"
+            >
+              <i class="fas fa-code text-white text-sm"></i>
+            </div>
+          </div>
+
+          <!-- Member Info -->
+          <h3 class="text-xl font-bold gradient-text mb-2">
+            {{ member.name }}
+          </h3>
+          <p class="text-emerald-600 font-semibold mb-4">{{ member.role }}</p>
+
+          <!-- Specialties -->
+          <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <span
+              *ngFor="let specialty of member.specialties"
+              class="px-3 py-1 bg-white/20 rounded-full text-xs font-medium text-gray-700"
+            >
+              {{ specialty }}
+            </span>
+          </div>
+
+          <!-- Contact Button -->
+          <button
+            class="btn-hover w-full gradient-bg text-white py-2 px-4 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+            (click)="copyEmail(member.email)"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contactar</span>
+          </button>
+
+          <!-- Social Links -->
+          <div class="flex justify-center space-x-3 mt-4">
+            <a
+              [href]="member.social.github"
+              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+            >
+              <i class="fab fa-github text-gray-600 text-sm"></i>
+            </a>
+            <a
+              [href]="member.social.linkedin"
+              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+            >
+              <i class="fab fa-linkedin text-gray-600 text-sm"></i>
+            </a>
+            <a
+              [href]="member.social.twitter"
+              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+            >
+              <i class="fab fa-twitter text-gray-600 text-sm"></i>
+            </a>
+          </div>
+
+          <!-- Shimmer Effect -->
+          <div
+            class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-3xl overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="max-w-4xl mx-auto mt-20 text-center scroll-reveal">
+      <div
+        class="glass-effect rounded-3xl p-12 shadow-2xl border border-white/30"
+      >
+        <h2 class="text-4xl font-bold gradient-text mb-6">
+          ¿Listo para Colaborar?
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          Únete a nosotros en la misión de crear un futuro más sostenible para
+          todos.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6">
+          <button
+            class="btn-hover gradient-bg text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-lg flex items-center gap-3"
+          >
+            <i class="fas fa-handshake float"></i>
+            <span>Colaborar</span>
+          </button>
+
+          <a
+            routerLink="/home"
+            class="btn-hover bg-white/20 backdrop-blur-sm text-gray-700 px-8 py-4 rounded-2xl shadow-xl font-bold text-lg border border-white/30 flex items-center gap-3"
+          >
+            <i class="fas fa-home"></i>
+            <span>Volver al Inicio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Spacing -->
+    <div class="h-20"></div>
+  </div>
 </div>
