@@ -9,7 +9,9 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RegisterService } from './register.service';
+import { AuthService } from '../../services/auth.service';
 import { IRegister } from '../../interfaces/register.interface';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -105,15 +107,23 @@ export class RegisterComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   passwordStrength = '';
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+
+    // Si el usuario ya está autenticado, redirigir según su rol
+    if (this.authService.isAuthenticated()) {
+      const redirectUrl = this.authService.getRedirectUrl();
+      this.router.navigate([redirectUrl]);
+    }
   }
 
   initForm(): void {
@@ -167,6 +177,8 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
+      this.errorMessage = '';
+
       const registerData: IRegister = {
         nombre: this.registerForm.get('nombre')?.value,
         email: this.registerForm.get('email')?.value,
@@ -174,15 +186,39 @@ export class RegisterComponent implements OnInit {
       };
 
       this.registerService.register(registerData).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           console.log('Registro exitoso:', response);
+
+          // Crear el usuario - por defecto los nuevos usuarios son tipo 'user'
+          let user: IUser;
+
+          if (response.user) {
+            user = response.user;
+          } else {
+            // Datos de ejemplo - en un caso real esto vendría del backend
+            user = {
+              id: response.id || Date.now(),
+              nombre: registerData.nombre,
+              email: registerData.email,
+              role: response.role || 'user', // Por defecto, los nuevos usuarios son 'user'
+            };
+          }
+
+          // Guardar usuario en el servicio de autenticación
+          this.authService.setCurrentUser(user);
+
+          // Redirigir según el rol del usuario (normalmente será /home para usuarios nuevos)
+          const redirectUrl = this.authService.getRedirectUrl();
+          console.log(`Redirigiendo a: ${redirectUrl} (Rol: ${user.role})`);
+
           this.isLoading = false;
-          // Navegar a la página de home después del registro exitoso
-          this.router.navigate(['/home']);
+          this.router.navigate([redirectUrl]);
         },
         error: (error) => {
           console.error('Error en registro:', error);
           this.isLoading = false;
+          this.errorMessage =
+            'Error al crear la cuenta. Por favor, inténtalo de nuevo.';
         },
       });
     } else {
@@ -228,7 +264,7 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-    // Validación de contraseñas que no coinciden
+    // Error de confirmación de contraseña
     if (
       fieldName === 'confirmPassword' &&
       this.registerForm.errors?.['passwordMismatch'] &&

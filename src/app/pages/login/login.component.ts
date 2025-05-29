@@ -8,7 +8,9 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from './login.service';
+import { AuthService } from '../../services/auth.service';
 import { ILogin } from '../../interfaces/login.interface';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-login',
@@ -94,15 +96,23 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
   showPassword = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+
+    // Si el usuario ya está autenticado, redirigir según su rol
+    if (this.authService.isAuthenticated()) {
+      const redirectUrl = this.authService.getRedirectUrl();
+      this.router.navigate([redirectUrl]);
+    }
   }
 
   initForm(): void {
@@ -116,26 +126,65 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
+      this.errorMessage = '';
+
       const loginData: ILogin = {
         email: this.loginForm.get('email')?.value,
         password: this.loginForm.get('password')?.value,
       };
 
       this.loginService.login(loginData).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           console.log('Login exitoso:', response);
+
+          // Aquí asumimos que el backend devuelve el usuario con su rol
+          // Si el backend no devuelve el usuario, crear uno de ejemplo
+          let user: IUser;
+
+          if (response.user) {
+            user = response.user;
+          } else {
+            // Datos de ejemplo - en un caso real esto vendría del backend
+            user = {
+              id: response.id || 1,
+              nombre: response.nombre || 'Usuario Demo',
+              email: loginData.email,
+              role: response.role || this.determineRoleByEmail(loginData.email),
+            };
+          }
+
+          // Guardar usuario en el servicio de autenticación
+          this.authService.setCurrentUser(user);
+
+          // Redirigir según el rol del usuario
+          const redirectUrl = this.authService.getRedirectUrl();
+          console.log(`Redirigiendo a: ${redirectUrl} (Rol: ${user.role})`);
+
           this.isLoading = false;
-          // Navegar a la página de home después del login exitoso
-          this.router.navigate(['/home']);
+          this.router.navigate([redirectUrl]);
         },
         error: (error) => {
           console.error('Error en login:', error);
           this.isLoading = false;
+          this.errorMessage =
+            'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
         },
       });
     } else {
       this.markFormGroupTouched();
     }
+  }
+
+  // Método temporal para determinar el rol basado en el email
+  // En un caso real, esto vendría del backend
+  private determineRoleByEmail(email: string): string {
+    // Emails de admin para testing
+    const adminEmails = [
+      'admin@econet.com',
+      'administrador@econet.com',
+      'admin@admin.com',
+    ];
+    return adminEmails.includes(email.toLowerCase()) ? 'admin' : 'user';
   }
 
   markFormGroupTouched(): void {

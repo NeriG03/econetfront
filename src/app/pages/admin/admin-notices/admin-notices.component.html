@@ -1,0 +1,858 @@
+<!-- Admin Noticias Component with White Background & Advanced Animations -->
+<div class="min-h-screen p-8">
+  <!-- Header Section -->
+  <div class="mb-8 header-slide-in">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-green-800">Gestión de Noticias</h1>
+        <p class="text-gray-600 mt-2">
+          Administra todas las noticias ecológicas del sistema
+        </p>
+      </div>
+
+      <!-- Add New Notice Button -->
+      <button
+        (click)="openCreateModal()"
+        class="btn-hover gradient-bg text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
+      >
+        <svg class="w-5 h-5 icon-spin" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Nueva Noticia
+      </button>
+    </div>
+
+    <!-- Search and Counter Section -->
+    <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-md search-container">
+        <div class="relative">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="searchNotices()"
+            placeholder="Buscar por título o descripción..."
+            class="w-full px-4 py-3 pl-10 rounded-lg border-2 border-green-300 focus:border-green-600 focus:outline-none shadow-sm text-gray-800 form-field"
+          />
+          <svg
+            class="w-5 h-5 text-green-600 absolute left-3 top-4 icon-bounce"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <div
+            *ngIf="searchTerm"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center"
+          >
+            <button
+              (click)="searchTerm = ''; searchNotices()"
+              class="text-gray-400 hover:text-green-600 transition-colors icon-spin"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Counter -->
+      <div
+        class="counter-badge bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold shadow-sm"
+      >
+        <svg
+          class="w-5 h-5 inline mr-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+            clip-rule="evenodd"
+          ></path>
+          <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
+        </svg>
+        {{ filteredNotices.length }} noticia{{
+          filteredNotices.length !== 1 ? "s" : ""
+        }}
+        <span *ngIf="searchTerm" class="text-green-700">
+          encontrada{{ filteredNotices.length !== 1 ? "s" : "" }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div
+    *ngIf="isLoading"
+    class="flex justify-center items-center py-12 loading-container"
+  >
+    <div class="text-center">
+      <div
+        class="loading-spinner rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"
+      ></div>
+      <p class="text-gray-600">Cargando noticias...</p>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div
+    *ngIf="!isLoading && filteredNotices.length === 0 && searchTerm"
+    class="text-center py-12 empty-state"
+  >
+    <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+      <svg
+        class="w-16 h-16 text-gray-400 mx-auto mb-4 float"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <h3 class="text-xl font-medium text-gray-500 mb-2">
+        No se encontraron resultados
+      </h3>
+      <p class="text-gray-400 mb-4">
+        No encontramos noticias que coincidan con "{{ searchTerm }}". Intenta
+        con otros términos de búsqueda.
+      </p>
+      <button
+        (click)="searchTerm = ''; searchNotices()"
+        class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 btn-hover"
+      >
+        <svg
+          class="w-5 h-5 inline mr-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Ver todas las noticias
+      </button>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!isLoading && notices.length === 0 && !searchTerm"
+    class="text-center py-12 empty-state"
+  >
+    <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+      <svg
+        class="w-16 h-16 text-gray-400 mx-auto mb-4 float"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+          clip-rule="evenodd"
+        ></path>
+        <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
+      </svg>
+      <h3 class="text-xl font-medium text-gray-500 mb-2">
+        No hay noticias registradas
+      </h3>
+      <p class="text-gray-400 mb-4">
+        Comienza creando tu primera noticia para el sistema.
+      </p>
+      <button
+        (click)="openCreateModal()"
+        class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 btn-hover"
+      >
+        <svg
+          class="w-5 h-5 inline mr-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Crear primera noticia
+      </button>
+    </div>
+  </div>
+
+  <!-- Notices Grid -->
+  <div
+    *ngIf="!isLoading && filteredNotices.length > 0"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 grid-container"
+  >
+    <div
+      *ngFor="let notice of filteredNotices; let i = index"
+      class="card-hover bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer border border-green-100 hover:border-green-300"
+      (click)="openViewModal(notice)"
+    >
+      <!-- Image Section -->
+      <div class="relative h-48 overflow-hidden image-hover">
+        <img
+          [src]="notice.img"
+          [alt]="notice.title"
+          class="w-full h-full object-cover hover:opacity-90 transition-opacity"
+          (error)="hideImage($event)"
+        />
+
+        <!-- Status Badge -->
+        <div class="absolute top-2 right-2">
+          <span
+            [class]="
+              notice.activo
+                ? 'bg-green-500 text-white px-2 py-1 rounded-lg text-xs font-medium status-badge'
+                : 'bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-medium status-badge'
+            "
+          >
+            {{ notice.activo ? "Activa" : "Inactiva" }}
+          </span>
+        </div>
+
+        <!-- ID Badge -->
+        <div
+          class="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded-lg text-xs font-medium id-badge"
+        >
+          #{{ notice.id }}
+        </div>
+      </div>
+
+      <!-- Content Section -->
+      <div class="p-4">
+        <h3 class="text-xl font-bold text-green-800 mb-2 truncate">
+          {{ notice.title }}
+        </h3>
+
+        <!-- Description Preview -->
+        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+          {{ notice.description }}
+        </p>
+
+        <!-- Action buttons -->
+        <div
+          class="flex justify-between items-center pt-4 border-t border-gray-100"
+        >
+          <button
+            (click)="$event.stopPropagation(); openViewModal(notice)"
+            class="text-green-600 hover:text-green-800 font-medium text-sm flex items-center gap-1 transition-colors action-btn"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+              <path
+                fill-rule="evenodd"
+                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Ver
+          </button>
+          <button
+            (click)="$event.stopPropagation(); openEditModal(notice)"
+            class="text-green-600 hover:text-green-800 font-medium text-sm flex items-center gap-1 transition-colors action-btn"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+              ></path>
+            </svg>
+            Editar
+          </button>
+          <button
+            (click)="$event.stopPropagation(); openDeleteModal(notice)"
+            class="text-red-600 hover:text-red-800 font-medium text-sm flex items-center gap-1 transition-colors action-btn"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+                clip-rule="evenodd"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 012 0v4a1 1 0 11-2 0V7zM12 7a1 1 0 012 0v4a1 1 0 11-2 0V7z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Modal -->
+<div
+  *ngIf="isModalOpen && selectedNotice"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+  style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px)"
+  (click)="closeAllModals()"
+>
+  <div
+    class="bg-white rounded-xl max-w-4xl w-full modal-content shadow-2xl border border-gray-200 custom-scrollbar"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+              clip-rule="evenodd"
+            ></path>
+            <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            {{ selectedNotice.title }}
+          </h2>
+          <p class="text-gray-500">Detalles de la Noticia</p>
+        </div>
+      </div>
+      <button
+        (click)="closeAllModals()"
+        class="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-lg"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Image Section -->
+        <div class="space-y-4">
+          <div class="relative">
+            <img
+              [src]="selectedNotice.img"
+              [alt]="selectedNotice.title"
+              class="w-full h-64 object-cover rounded-lg shadow-sm"
+              (error)="hideImage($event)"
+            />
+            <div class="absolute top-3 right-3">
+              <span
+                [class]="
+                  selectedNotice.activo
+                    ? 'bg-green-500 text-white px-3 py-1 rounded-lg font-semibold text-sm'
+                    : 'bg-red-500 text-white px-3 py-1 rounded-lg font-semibold text-sm'
+                "
+              >
+                {{
+                  selectedNotice.activo ? "Noticia Activa" : "Noticia Inactiva"
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="space-y-4">
+          <!-- Title -->
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex items-center space-x-2 mb-2">
+              <div
+                class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-blue-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800">Título</h3>
+            </div>
+            <p class="text-gray-700">{{ selectedNotice.title }}</p>
+          </div>
+
+          <!-- Description -->
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex items-center space-x-2 mb-2">
+              <div
+                class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-purple-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800">Descripción</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              {{ selectedNotice.description }}
+            </p>
+          </div>
+
+          <!-- Status Info -->
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex items-center space-x-2 mb-2">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800">Estado</h3>
+            </div>
+            <p class="text-gray-700">
+              Esta noticia está actualmente
+              <span
+                [class]="
+                  selectedNotice.activo
+                    ? 'text-green-600 font-semibold'
+                    : 'text-red-600 font-semibold'
+                "
+              >
+                {{ selectedNotice.activo ? "activa" : "inactiva" }}
+              </span>
+              {{
+                selectedNotice.activo
+                  ? " y visible para los usuarios."
+                  : " y no es visible para los usuarios."
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="mt-6 flex justify-end space-x-3">
+        <button
+          (click)="openEditModal(selectedNotice)"
+          class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg shadow-lg font-semibold flex items-center gap-2 transition-all duration-300 hover:scale-105"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+            ></path>
+          </svg>
+          Editar Noticia
+        </button>
+        <button
+          (click)="closeAllModals()"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg shadow-lg font-semibold transition-all duration-300 hover:scale-105"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create/Edit Modal -->
+<div
+  *ngIf="isCreateModalOpen || isEditModalOpen"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+  style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px)"
+  (click)="closeAllModals()"
+>
+  <div
+    class="bg-white rounded-xl max-w-4xl w-full modal-content shadow-2xl border border-gray-200 custom-scrollbar"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            {{ isCreateModalOpen ? "Nueva Noticia" : "Editar Noticia" }}
+          </h2>
+          <p class="text-gray-500">
+            {{
+              isCreateModalOpen
+                ? "Completa los datos para crear una nueva noticia"
+                : "Modifica los datos de la noticia"
+            }}
+          </p>
+        </div>
+      </div>
+      <button
+        (click)="closeAllModals()"
+        class="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-lg"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form Content -->
+    <div class="p-6">
+      <form
+        [formGroup]="noticeForm"
+        (ngSubmit)="isCreateModalOpen ? createNotice() : updateNotice()"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <!-- Title -->
+            <div>
+              <label class="block text-gray-700 text-sm font-semibold mb-2">
+                Título *
+              </label>
+              <input
+                type="text"
+                formControlName="title"
+                placeholder="Ingrese el título de la noticia"
+                class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none shadow-sm text-gray-800 form-field"
+                [class.border-red-300]="isFieldInvalid('title')"
+                [class.border-green-300]="!isFieldInvalid('title')"
+                [class.focus:border-green-500]="!isFieldInvalid('title')"
+              />
+              <p
+                *ngIf="isFieldInvalid('title')"
+                class="text-red-500 text-sm mt-1"
+              >
+                {{ getFieldError("title") }}
+              </p>
+            </div>
+
+            <!-- Description -->
+            <div>
+              <label class="block text-gray-700 text-sm font-semibold mb-2">
+                Descripción *
+              </label>
+              <textarea
+                formControlName="description"
+                rows="6"
+                placeholder="Ingrese la descripción completa de la noticia"
+                class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none shadow-sm text-gray-800 form-field resize-none"
+                [class.border-red-300]="isFieldInvalid('description')"
+                [class.border-green-300]="!isFieldInvalid('description')"
+                [class.focus:border-green-500]="!isFieldInvalid('description')"
+              ></textarea>
+              <p
+                *ngIf="isFieldInvalid('description')"
+                class="text-red-500 text-sm mt-1"
+              >
+                {{ getFieldError("description") }}
+              </p>
+            </div>
+
+            <!-- Status -->
+            <div>
+              <label class="block text-gray-700 text-sm font-semibold mb-2">
+                Estado *
+              </label>
+              <div class="flex items-center space-x-6">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    [value]="true"
+                    formControlName="activo"
+                    class="mr-2 text-green-600 focus:ring-green-500"
+                  />
+                  <span class="text-green-600 font-medium">Activa</span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    [value]="false"
+                    formControlName="activo"
+                    class="mr-2 text-red-600 focus:ring-red-500"
+                  />
+                  <span class="text-red-600 font-medium">Inactiva</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-4">
+            <!-- Image URL -->
+            <div>
+              <label class="block text-gray-700 text-sm font-semibold mb-2">
+                URL de la Imagen *
+              </label>
+              <input
+                type="url"
+                formControlName="img"
+                placeholder="https://ejemplo.com/imagen.jpg"
+                class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none shadow-sm text-gray-800 form-field"
+                [class.border-red-300]="isFieldInvalid('img')"
+                [class.border-green-300]="!isFieldInvalid('img')"
+                [class.focus:border-green-500]="!isFieldInvalid('img')"
+              />
+              <p
+                *ngIf="isFieldInvalid('img')"
+                class="text-red-500 text-sm mt-1"
+              >
+                {{ getFieldError("img") }}
+              </p>
+            </div>
+
+            <!-- Image Preview -->
+            <div
+              *ngIf="noticeForm.get('img')?.value"
+              class="bg-gray-50 rounded-lg p-4 border border-gray-200"
+            >
+              <label class="block text-gray-700 text-sm font-semibold mb-2">
+                Vista Previa
+              </label>
+              <div class="relative overflow-hidden rounded-lg">
+                <img
+                  [src]="noticeForm.get('img')?.value"
+                  alt="Vista previa"
+                  class="w-full h-32 object-cover"
+                  (error)="hideImage($event)"
+                />
+              </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <h4 class="text-green-800 font-semibold">Consejos</h4>
+              </div>
+              <ul class="text-green-700 text-sm space-y-1">
+                <li>• Usa imágenes de alta calidad (mínimo 800x600px)</li>
+                <li>• Prefiere formatos JPEG o PNG</li>
+                <li>• Asegúrate de que la URL sea accesible</li>
+                <li>• Describe claramente el contenido de la noticia</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="mt-6 flex justify-end space-x-3">
+          <button
+            type="button"
+            (click)="closeAllModals()"
+            class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg shadow-lg font-semibold transition-all duration-300 hover:scale-105"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="!noticeForm.valid || isLoading"
+            class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg shadow-lg font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            <div
+              *ngIf="isLoading"
+              class="loading-spinner rounded-full h-4 w-4 border-b-2 border-white"
+            ></div>
+            <svg
+              *ngIf="!isLoading"
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            {{ isCreateModalOpen ? "Crear Noticia" : "Guardar Cambios" }}
+          </button>
+        </div>
+      </form>
+
+      <!-- Error Message -->
+      <div
+        *ngIf="errorMessage"
+        class="mt-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg message-slide-in"
+      >
+        <div class="flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div
+        *ngIf="successMessage"
+        class="mt-4 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg message-slide-in"
+      >
+        <div class="flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          {{ successMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div
+  *ngIf="isDeleteModalOpen && selectedNotice"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+  style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px)"
+  (click)="closeAllModals()"
+>
+  <div
+    class="bg-white rounded-xl max-w-md w-full modal-content shadow-2xl border border-gray-200"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Content -->
+    <div class="p-6 text-center">
+      <div
+        class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
+      >
+        <svg
+          class="w-6 h-6 text-red-600"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+            clip-rule="evenodd"
+          ></path>
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 012 0v4a1 1 0 11-2 0V7zM12 7a1 1 0 012 0v4a1 1 0 11-2 0V7z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+
+      <h2 class="text-xl font-bold text-gray-800 mb-2">¿Eliminar Noticia?</h2>
+
+      <p class="text-gray-600 mb-4">
+        ¿Estás seguro de que quieres eliminar la noticia?
+      </p>
+
+      <div class="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+        <p class="text-red-800 font-semibold text-sm">
+          "{{ selectedNotice.title }}"
+        </p>
+        <p class="text-red-600 text-sm">Esta acción no se puede deshacer.</p>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="flex space-x-3">
+        <button
+          (click)="closeAllModals()"
+          class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg shadow-lg font-semibold transition-all duration-300 hover:scale-105"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="deleteNotice()"
+          [disabled]="isLoading"
+          class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg shadow-lg font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          <div
+            *ngIf="isLoading"
+            class="loading-spinner rounded-full h-4 w-4 border-b-2 border-white"
+          ></div>
+          <svg
+            *ngIf="!isLoading"
+            class="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+              clip-rule="evenodd"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 012 0v4a1 1 0 11-2 0V7zM12 7a1 1 0 012 0v4a1 1 0 11-2 0V7z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
