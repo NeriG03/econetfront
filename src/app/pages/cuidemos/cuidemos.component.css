@@ -1,0 +1,557 @@
+/* Animaciones de entrada - AHORA MANEJADAS POR ANGULAR ANIMATIONS */
+/*
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.bounce-in {
+  animation: bounceIn 1.2s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+*/
+
+/* Animaciones constantes - OPTIMIZADAS */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.rotate-slow {
+  animation: rotateSlow 20s linear infinite;
+}
+
+.wave {
+  animation: wave 4s ease-in-out infinite;
+}
+
+.shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+/* Efectos hover mejorados - SIMPLIFICADOS PARA ANGULAR */
+/*
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+}
+
+.btn-hover {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-hover:hover::before {
+  left: 100%;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+.input-focus {
+  transition: all 0.3s ease;
+}
+
+.input-focus:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
+}
+*/
+
+/* Gradientes animados */
+.gradient-bg {
+  background: linear-gradient(-45deg, #10b981, #059669, #047857, #065f46);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #10b981, #059669, #047857, #065f46);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Partículas flotantes - OPTIMIZADAS PARA GPU */
+.particle {
+  position: absolute;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0); /* Fuerza aceleración por GPU */
+}
+
+.particle-1 {
+  width: 4px;
+  height: 4px;
+  top: 20%;
+  left: 10%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.particle-2 {
+  width: 6px;
+  height: 6px;
+  top: 60%;
+  right: 15%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.particle-3 {
+  width: 3px;
+  height: 3px;
+  top: 80%;
+  left: 70%;
+  animation: float 12s ease-in-out infinite;
+}
+
+.particle-4 {
+  width: 5px;
+  height: 5px;
+  top: 40%;
+  left: 80%;
+  animation: float 14s ease-in-out infinite;
+}
+
+/* Keyframes OPTIMIZADOS PARA RENDIMIENTO */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(50px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 1);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0, 0, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -15px, 0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.4);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
+    transform: scale3d(1.02, 1.02, 1);
+  }
+}
+
+@keyframes rotateSlow {
+  from {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    transform: translate3d(-5px, -5px, 0) rotate3d(0, 0, 1, -5deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate3d(0, 0, 1, 0deg);
+  }
+  75% {
+    transform: translate3d(5px, -5px, 0) rotate3d(0, 0, 1, 5deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Efectos de scroll */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Efectos especiales */
+.glass-effect {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.neon-glow {
+  box-shadow: 0 0 5px #10b981, 0 0 10px #10b981, 0 0 15px #10b981;
+}
+
+/* Modal styles */
+.modal-backdrop {
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* Modal Header Improvements */
+.modal-content .gradient-text {
+  background: linear-gradient(135deg, #065f46 0%, #047857 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Modal Text Improvements */
+.modal-content h2 {
+  color: #065f46 !important;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.modal-content h3 {
+  color: #047857 !important;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.modal-content p {
+  color: #374151 !important;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.modal-content .text-gray-600 {
+  color: #4b5563 !important;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.modal-content .text-gray-700 {
+  color: #374151 !important;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.modal-content .text-gray-800 {
+  color: #1f2937 !important;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Modal Section Backgrounds */
+.modal-content .bg-white\/20 {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Header Background */
+.modal-content .border-b {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
+  border-bottom: 2px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Icon Backgrounds in Modal */
+.modal-content .bg-yellow-100 {
+  background: rgba(254, 243, 199, 0.9) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.modal-content .bg-blue-100 {
+  background: rgba(219, 234, 254, 0.9) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.modal-content .bg-green-100 {
+  background: rgba(220, 252, 231, 0.9) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.modal-content .bg-purple-100 {
+  background: rgba(243, 232, 255, 0.9) !important;
+  border: 1px solid rgba(147, 51, 234, 0.3);
+}
+
+.modal-content .bg-orange-100 {
+  background: rgba(255, 237, 213, 0.9) !important;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.modal-content .bg-red-100 {
+  background: rgba(254, 226, 226, 0.9) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.modal-content .bg-indigo-100 {
+  background: rgba(224, 231, 255, 0.9) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.modal-content .bg-pink-100 {
+  background: rgba(252, 231, 243, 0.9) !important;
+  border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.modal-content .bg-gray-100 {
+  background: rgba(243, 244, 246, 0.9) !important;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+/* Icon Colors in Modal */
+.modal-content .text-yellow-600 {
+  color: #d97706 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-blue-600 {
+  color: #2563eb !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-green-600 {
+  color: #16a34a !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-purple-600 {
+  color: #9333ea !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-orange-600 {
+  color: #ea580c !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-red-600 {
+  color: #dc2626 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-indigo-600 {
+  color: #4f46e5 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-pink-600 {
+  color: #db2777 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.modal-content .text-gray-600 {
+  color: #4b5563 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Button Improvements in Modal */
+.modal-content button {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+/* Close Button */
+.modal-content .text-gray-500 {
+  color: #6b7280 !important;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-content .text-gray-500:hover {
+  color: #374151 !important;
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.1);
+}
+
+/* Stats Cards in Modal */
+.modal-content .text-center p:first-child {
+  color: #6b7280 !important;
+  font-weight: 500;
+}
+
+.modal-content .text-center p:last-child {
+  color: #1f2937 !important;
+  font-weight: 700;
+}
+
+/* Scrollbar Styling for Modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.6);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.8);
+}
+
+/* Search styles */
+.search-highlight {
+  background: linear-gradient(120deg, #fbbf24 0%, #f59e0b 100%);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+}

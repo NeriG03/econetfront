@@ -1,303 +1,362 @@
-<!-- Admin Dashboard with Sidebar -->
-<div class="min-h-screen bg-gray-50 flex">
-  <!-- Sidebar -->
-  <div
-    class="w-64 bg-gradient-to-b from-green-700 to-green-800 text-white shadow-xl fixed h-full z-40"
-  >
-    <!-- Logo/Header -->
-    <div class="p-6 border-b border-green-600">
-      <div class="flex items-center space-x-3">
-        <div class="bg-white rounded-lg p-2">
-          <svg
-            class="w-6 h-6 text-green-700"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-            ></path>
-          </svg>
-        </div>
-        <div>
-          <h2 class="text-xl font-bold">Panel Admin</h2>
-          <p class="text-green-200 text-sm">EcoNet.io</p>
-        </div>
-      </div>
-    </div>
+<!-- Enhanced Admin Dashboard with Glassmorphism Design -->
+<div class="min-h-screen relative overflow-hidden">
+  <!-- Animated Background with Parallax -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://iili.io/3aFJF7n.png"
+      alt="EcoNet Admin Background"
+      class="w-full h-full object-cover opacity-30 scale-110 transition-transform duration-1000"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-50/40 via-sky-50/30 to-green-100/50"
+    ></div>
+  </div>
 
-    <!-- Navigation Menu -->
-    <nav class="mt-6 px-4">
-      <ul class="space-y-2">
-        <!-- Dashboard/Overview -->
-        <li>
-          <a
-            routerLink="/admin"
-            routerLinkActive="bg-green-600 text-white shadow-lg"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200"
+  <!-- Floating Particles -->
+  <div class="particle particle-1"></div>
+  <div class="particle particle-2"></div>
+  <div class="particle particle-3"></div>
+  <div class="particle particle-4"></div>
+
+  <div class="flex relative z-10">
+    <!-- Enhanced Glassmorphism Sidebar -->
+    <div
+      class="w-72 h-screen fixed z-40 backdrop-blur-xl bg-gradient-to-b from-emerald-600/20 via-sky-600/15 to-green-700/20 border-r border-white/20 shadow-2xl sidebar-glass"
+    >
+      <!-- Logo/Header with Animation -->
+      <div class="p-6 border-b border-white/20 backdrop-blur-sm">
+        <div class="flex items-center space-x-3 fade-in">
+          <div
+            class="bg-gradient-to-br from-emerald-400 to-sky-500 rounded-2xl p-3 shadow-lg pulse-glow"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              class="w-8 h-8 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
               ></path>
             </svg>
-            <span class="font-medium">Dashboard</span>
-          </a>
-        </li>
-
-        <!-- Actividades -->
-        <li>
-          <a
-            href="#"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Actividades</span
-            >
-            <svg
-              class="w-4 h-4 ml-auto text-green-300 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li>
-
-        <!-- Manuales -->
-        <li>
-          <a
-            routerLink="/admin/manuales"
-            routerLinkActive="bg-green-600 text-white font-medium"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
-              ></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Manuales</span
-            >
-            <svg
-              class="w-4 h-4 ml-auto text-green-300 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li>
-
-        <!-- Noticias -->
-        <li>
-          <a
-            href="#"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                clip-rule="evenodd"
-              ></path>
-              <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Noticias</span
-            >
-            <svg
-              class="w-4 h-4 ml-auto text-green-300 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Divider -->
-      <div class="my-6 border-t border-green-600"></div>
-
-      <!-- Additional Menu Items -->
-      <ul class="space-y-2">
-        <!-- Configuración -->
-        <li>
-          <a
-            href="#"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Configuración</span
-            >
-          </a>
-        </li>
-
-        <!-- Usuarios -->
-        <li>
-          <a
-            href="#"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
-              ></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Usuarios</span
-            >
-          </a>
-        </li>
-
-        <!-- Estadísticas -->
-        <li>
-          <a
-            href="#"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-200 group"
-          >
-            <svg
-              class="w-5 h-5 text-green-200 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
-              ></path>
-            </svg>
-            <span class="font-medium text-green-100 group-hover:text-white"
-              >Estadísticas</span
-            >
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- User Profile Section at Bottom -->
-    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-green-600">
-      <div class="flex items-center space-x-3">
-        <div
-          class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center"
-        >
-          <svg
-            class="w-6 h-6 text-white"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          </div>
+          <div class="slide-up">
+            <h2 class="text-2xl font-bold text-white drop-shadow-lg">
+              Admin Panel
+            </h2>
+            <p class="text-emerald-100 text-sm font-medium">EcoNet.io</p>
+          </div>
         </div>
-        <div class="flex-1">
-          <p class="text-sm font-medium text-white">Administrador</p>
-          <p class="text-xs text-green-200">admin&#64;econet.io</p>
-        </div>
-        <button class="text-green-200 hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </button>
       </div>
-    </div>
-  </div>
 
-  <!-- Main Content Area -->
-  <div class="ml-64 flex-1">
-    <!-- Dynamic content will be loaded here via router-outlet -->
-    <router-outlet></router-outlet>
+      <!-- Enhanced Navigation Menu -->
+      <nav class="mt-6 px-4">
+        <ul class="space-y-3">
+          <!-- Dashboard/Overview -->
+          <li class="slide-in-left" style="animation-delay: 0.1s">
+            <a
+              routerLink="/admin"
+              routerLinkActive="nav-link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 group border border-white/10 hover:border-white/30"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-emerald-300 group-hover:text-white transition-colors"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="font-semibold text-white group-hover:text-emerald-100 transition-colors"
+                >Dashboard</span
+              >
+              <div class="nav-glow"></div>
+            </a>
+          </li>
 
-    <!-- Default dashboard content when no child route is active -->
-    <div *ngIf="showDashboard">
-      <div class="min-h-screen bg-gray-50 p-8">
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold text-green-800">
-            Dashboard de Administración
-          </h1>
-          <p class="text-gray-600 mt-2">
-            Panel de control principal - EcoNet.io
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Card de Manuales -->
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 border border-green-100 hover:shadow-xl transition-shadow"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-green-800">Manuales</h3>
+          <!-- Manuales -->
+          <li class="slide-in-left" style="animation-delay: 0.2s">
+            <a
+              routerLink="/admin/manuales"
+              routerLinkActive="nav-link-active"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 group border border-white/10 hover:border-white/30"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-emerald-300 group-hover:text-white transition-colors"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="font-semibold text-white group-hover:text-emerald-100 transition-colors"
+                >Manuales</span
+              >
               <svg
-                class="w-8 h-8 text-green-600"
+                class="w-5 h-5 ml-auto text-emerald-200 group-hover:text-white opacity-60 group-hover:opacity-100 transition-all"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
                 <path
-                  d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
                 ></path>
               </svg>
+              <div class="nav-glow"></div>
+            </a>
+          </li>
+
+          <!-- Actividades -->
+          <li class="slide-in-left" style="animation-delay: 0.3s">
+            <a
+              routerLink="/admin/actividades"
+              routerLinkActive="nav-link-active"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 group border border-white/10 hover:border-white/30"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-emerald-300 group-hover:text-white transition-colors"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="font-semibold text-white group-hover:text-emerald-100 transition-colors"
+                >Actividades</span
+              >
+              <svg
+                class="w-5 h-5 ml-auto text-emerald-200 group-hover:text-white opacity-60 group-hover:opacity-100 transition-all"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div class="nav-glow"></div>
+            </a>
+          </li>
+
+          <!-- Noticias -->
+          <li class="slide-in-left" style="animation-delay: 0.4s">
+            <a
+              routerLink="/admin/noticias"
+              routerLinkActive="nav-link-active"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 group border border-white/10 hover:border-white/30"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-emerald-300 group-hover:text-white transition-colors"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+                    clip-rule="evenodd"
+                  ></path>
+                  <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
+                </svg>
+              </div>
+              <span
+                class="font-semibold text-white group-hover:text-emerald-100 transition-colors"
+                >Noticias</span
+              >
+              <svg
+                class="w-5 h-5 ml-auto text-emerald-200 group-hover:text-white opacity-60 group-hover:opacity-100 transition-all"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div class="nav-glow"></div>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Divider -->
+        <div class="my-8 border-t border-white/20"></div>
+
+        <!-- Additional Menu Items -->
+        <ul class="space-y-3">
+          <!-- Configuración -->
+          <li class="slide-in-left" style="animation-delay: 0.5s">
+            <a
+              href="#"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300 group border border-white/10 opacity-60 cursor-not-allowed"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <span class="font-semibold text-gray-400">Configuración</span>
+            </a>
+          </li>
+
+          <!-- Usuarios -->
+          <li class="slide-in-left" style="animation-delay: 0.6s">
+            <a
+              href="#"
+              class="nav-link-admin flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300 group border border-white/10 opacity-60 cursor-not-allowed"
+            >
+              <div class="nav-icon-container">
+                <svg
+                  class="w-6 h-6 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
+                  ></path>
+                </svg>
+              </div>
+              <span class="font-semibold text-gray-400">Usuarios</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Enhanced User Profile Section at Bottom -->
+      <div
+        class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/20 backdrop-blur-sm"
+      >
+        <div class="flex items-center space-x-4 bounce-in">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-sky-500 rounded-2xl flex items-center justify-center shadow-lg pulse-glow"
+          >
+            <svg
+              class="w-7 h-7 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-white drop-shadow">
+              Administrador
+            </p>
+            <p class="text-xs text-emerald-200 font-medium">
+              admin&#64;econet.io
+            </p>
+          </div>
+          <button
+            class="text-emerald-200 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="ml-72 flex-1">
+      <!-- Dynamic content will be loaded here via router-outlet -->
+      <router-outlet></router-outlet>
+
+      <!-- Enhanced Default Dashboard Content -->
+      <div *ngIf="showDashboard" class="min-h-screen p-8">
+        <!-- Hero Header -->
+        <div class="mb-12 slide-up">
+          <div
+            class="backdrop-blur-xl bg-white/20 rounded-3xl p-12 shadow-2xl border border-white/30 pulse-glow"
+          >
+            <h1 class="text-5xl font-bold gradient-text mb-4">
+              Dashboard de Administración
+            </h1>
+            <p
+              class="text-xl text-gray-700 max-w-3xl leading-relaxed drop-shadow"
+            >
+              Bienvenido al panel de control de EcoNet. Gestiona todo el
+              contenido ecológico desde aquí.
+            </p>
+            <div class="mt-6 flex justify-start">
+              <div class="w-24 h-1 gradient-bg rounded-full"></div>
             </div>
-            <p class="text-gray-600 mb-4">
-              Gestiona todos los manuales de cuidado de plantas
+          </div>
+        </div>
+
+        <!-- Enhanced Cards Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- Enhanced Card de Manuales -->
+          <div
+            class="card-hover glass-effect rounded-3xl p-8 shadow-2xl border border-white/30 group slide-in-right"
+            style="animation-delay: 0.1s"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 group-hover:text-emerald-700 transition-colors"
+              >
+                Manuales
+              </h3>
+              <div
+                class="p-4 bg-gradient-to-br from-emerald-400 to-sky-500 rounded-2xl shadow-lg group-hover:scale-110 transition-transform pulse-glow"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 715.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Gestiona todos los manuales de cuidado de plantas de manera fácil
+              e intuitiva
             </p>
             <a
               routerLink="/admin/manuales"
-              class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+              class="btn-hover inline-flex items-center px-6 py-3 gradient-bg text-white rounded-2xl shadow-lg font-semibold transition-all duration-300 group-hover:scale-105"
             >
               Ver Manuales
-              <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path
                   fill-rule="evenodd"
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -307,135 +366,75 @@
             </a>
           </div>
 
-          <!-- Card de Actividades -->
+          <!-- Enhanced Card de Actividades -->
           <div
-            class="bg-white rounded-xl shadow-lg p-6 border border-green-100 hover:shadow-xl transition-shadow"
+            class="card-hover glass-effect rounded-3xl p-8 shadow-2xl border border-white/30 group slide-in-right"
+            style="animation-delay: 0.2s"
           >
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-green-800">Actividades</h3>
-              <svg
-                class="w-8 h-8 text-green-600"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+            <div class="flex items-center justify-between mb-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 group-hover:text-emerald-700 transition-colors"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </div>
-            <p class="text-gray-600 mb-4">
-              Administra las actividades del sistema
-            </p>
-            <button
-              class="inline-flex items-center px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
-            >
-              Próximamente
-            </button>
-          </div>
-
-          <!-- Card de Noticias -->
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 border border-green-100 hover:shadow-xl transition-shadow"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-green-800">Noticias</h3>
-              <svg
-                class="w-8 h-8 text-green-600"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+                Actividades
+              </h3>
+              <div
+                class="p-4 bg-gradient-to-br from-emerald-400 to-sky-500 rounded-2xl shadow-lg group-hover:scale-110 transition-transform pulse-glow"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                  clip-rule="evenodd"
-                ></path>
-                <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
-              </svg>
-            </div>
-            <p class="text-gray-600 mb-4">Gestiona las noticias del portal</p>
-            <button
-              class="inline-flex items-center px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
-            >
-              Próximamente
-            </button>
-          </div>
-        </div>
-
-        <!-- Estadísticas Rápidas -->
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-green-800 mb-6">
-            Resumen del Sistema
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div
-              class="bg-white rounded-xl shadow-lg p-6 text-center border border-green-100"
-            >
-              <div class="text-3xl font-bold text-green-600 mb-2">📖</div>
-              <div class="text-lg font-semibold text-gray-800">Manuales</div>
-              <div class="text-sm text-gray-600">Sistema CRUD completo</div>
-            </div>
-            <div
-              class="bg-white rounded-xl shadow-lg p-6 text-center border border-green-100"
-            >
-              <div class="text-3xl font-bold text-blue-600 mb-2">📅</div>
-              <div class="text-lg font-semibold text-gray-800">Actividades</div>
-              <div class="text-sm text-gray-600">En desarrollo</div>
-            </div>
-            <div
-              class="bg-white rounded-xl shadow-lg p-6 text-center border border-green-100"
-            >
-              <div class="text-3xl font-bold text-yellow-600 mb-2">📰</div>
-              <div class="text-lg font-semibold text-gray-800">Noticias</div>
-              <div class="text-sm text-gray-600">En desarrollo</div>
-            </div>
-            <div
-              class="bg-white rounded-xl shadow-lg p-6 text-center border border-green-100"
-            >
-              <div class="text-3xl font-bold text-purple-600 mb-2">👥</div>
-              <div class="text-lg font-semibold text-gray-800">Usuarios</div>
-              <div class="text-sm text-gray-600">Gestión futura</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accesos Rápidos -->
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-green-800 mb-6">
-            Accesos Rápidos
-          </h2>
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 border border-green-100"
-          >
-            <div class="flex flex-wrap gap-4">
-              <a
-                routerLink="/admin/manuales"
-                class="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 715.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"
-                  ></path>
-                </svg>
-                Crear Manual
-              </a>
-              <button
-                class="flex items-center gap-2 px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fill-rule="evenodd"
                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                Nueva Actividad
-              </button>
-              <button
-                class="flex items-center gap-2 px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Administra las actividades ambientales y eventos del sistema con
+              puntos de recompensa
+            </p>
+            <a
+              routerLink="/admin/actividades"
+              class="btn-hover inline-flex items-center px-6 py-3 gradient-bg text-white rounded-2xl shadow-lg font-semibold transition-all duration-300 group-hover:scale-105"
+            >
+              Ver Actividades
+              <svg
+                class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"
+                fill="currentColor"
+                viewBox="0 0 20 20"
               >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Enhanced Card de Noticias -->
+          <div
+            class="card-hover glass-effect rounded-3xl p-8 shadow-2xl border border-white/30 group slide-in-right"
+            style="animation-delay: 0.3s"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 group-hover:text-emerald-700 transition-colors"
+              >
+                Noticias
+              </h3>
+              <div
+                class="p-4 bg-gradient-to-br from-emerald-400 to-sky-500 rounded-2xl shadow-lg group-hover:scale-110 transition-transform pulse-glow"
+              >
+                <svg
+                  class="w-8 h-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fill-rule="evenodd"
                     d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
@@ -443,13 +442,189 @@
                   ></path>
                   <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
                 </svg>
-                Publicar Noticia
-              </button>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Gestiona las noticias y artículos ecológicos del portal de manera
+              fácil e intuitiva
+            </p>
+            <a
+              routerLink="/admin/noticias"
+              class="btn-hover inline-flex items-center px-6 py-3 gradient-bg text-white rounded-2xl shadow-lg font-semibold transition-all duration-300 group-hover:scale-105"
+            >
+              Ver Noticias
+              <svg
+                class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Enhanced Stats Section -->
+        <div class="mb-12 scroll-reveal">
+          <div
+            class="backdrop-blur-xl bg-white/20 rounded-3xl p-8 shadow-2xl border border-white/30"
+          >
+            <h2 class="text-3xl font-bold gradient-text mb-8 text-center">
+              <i class="fas fa-chart-bar mr-3"></i>
+              Resumen del Sistema
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <!-- Stat Card 1 -->
+              <div
+                class="glass-effect rounded-2xl p-6 text-center shadow-xl border border-white/30 bounce-in"
+                style="animation-delay: 0.1s"
+              >
+                <div class="text-4xl mb-4">
+                  <i class="fas fa-book-open text-emerald-500"></i>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 mb-2">Sistema</div>
+                <div
+                  class="text-sm text-emerald-600 font-semibold bg-emerald-100 px-3 py-1 rounded-full"
+                >
+                  Manuales CRUD
+                </div>
+              </div>
+
+              <!-- Stat Card 2 -->
+              <div
+                class="glass-effect rounded-2xl p-6 text-center shadow-xl border border-white/30 bounce-in"
+                style="animation-delay: 0.2s"
+              >
+                <div class="text-4xl mb-4">
+                  <i class="fas fa-calendar-alt text-emerald-500"></i>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 mb-2">
+                  Actividades
+                </div>
+                <div
+                  class="text-sm text-emerald-600 font-semibold bg-emerald-100 px-3 py-1 rounded-full"
+                >
+                  Sistema CRUD
+                </div>
+              </div>
+
+              <!-- Stat Card 3 -->
+              <div
+                class="glass-effect rounded-2xl p-6 text-center shadow-xl border border-white/30 bounce-in"
+                style="animation-delay: 0.3s"
+              >
+                <div class="text-4xl mb-4">
+                  <i class="fas fa-newspaper text-emerald-500"></i>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 mb-2">
+                  Noticias
+                </div>
+                <div
+                  class="text-sm text-emerald-600 font-semibold bg-emerald-100 px-3 py-1 rounded-full"
+                >
+                  Sistema CRUD
+                </div>
+              </div>
+
+              <!-- Stat Card 4 -->
+              <div
+                class="glass-effect rounded-2xl p-6 text-center shadow-xl border border-white/30 bounce-in"
+                style="animation-delay: 0.4s"
+              >
+                <div class="text-4xl mb-4">
+                  <i class="fas fa-users text-purple-500"></i>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 mb-2">
+                  Usuarios
+                </div>
+                <div
+                  class="text-sm text-purple-600 font-semibold bg-purple-100 px-3 py-1 rounded-full"
+                >
+                  Gestión futura
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Quick Actions -->
+        <div class="scroll-reveal">
+          <div
+            class="backdrop-blur-xl bg-white/20 rounded-3xl p-8 shadow-2xl border border-white/30"
+          >
+            <h2 class="text-3xl font-bold gradient-text mb-8 text-center">
+              <i class="fas fa-bolt mr-3"></i>
+              Accesos Rápidos
+            </h2>
+            <div class="flex flex-wrap justify-center gap-6">
+              <!-- Quick Action 1 -->
+              <a
+                routerLink="/admin/manuales"
+                class="group btn-hover gradient-bg text-white px-10 py-5 rounded-2xl shadow-xl border-2 border-white/20 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105 slide-in-up"
+                style="animation-delay: 0.1s"
+              >
+                <i
+                  class="fas fa-plus-circle text-2xl float"
+                  style="animation-delay: 1s"
+                ></i>
+                <span>Crear Manual</span>
+                <i
+                  class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+                ></i>
+              </a>
+
+              <!-- Quick Action 2 -->
+              <a
+                routerLink="/admin/actividades"
+                class="group btn-hover gradient-bg text-white px-10 py-5 rounded-2xl shadow-xl border-2 border-white/20 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105 slide-in-up"
+                style="animation-delay: 0.2s"
+              >
+                <i
+                  class="fas fa-calendar-plus text-2xl float"
+                  style="animation-delay: 1.2s"
+                ></i>
+                <span>Gestionar Actividades</span>
+                <i
+                  class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+                ></i>
+              </a>
+
+              <!-- Quick Action 3 -->
+              <a
+                routerLink="/admin/noticias"
+                class="group btn-hover gradient-bg text-white px-10 py-5 rounded-2xl shadow-xl border-2 border-white/20 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105 slide-in-up"
+                style="animation-delay: 0.3s"
+              >
+                <i
+                  class="fas fa-newspaper text-2xl float"
+                  style="animation-delay: 1.3s"
+                ></i>
+                <span>Gestionar Noticias</span>
+                <i
+                  class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+                ></i>
+              </a>
+
+              <!-- Quick Action 4 -->
+              <a
+                routerLink="/home"
+                class="group btn-hover flex items-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm text-gray-700 border-2 border-white/30 rounded-2xl shadow-xl font-semibold transition-all duration-300 hover:scale-105 slide-in-up"
+                style="animation-delay: 0.4s"
+              >
+                <i class="fas fa-eye text-xl"></i>
+                <span>Ver Sitio</span>
+                <i
+                  class="fas fa-external-link-alt group-hover:translate-x-2 transition-transform"
+                ></i>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End of showDashboard div -->
   </div>
 </div>

@@ -1,54 +1,161 @@
-<nav *ngIf="shouldShowNavbar()" class="sticky top-0 z-50 bg-gradient-to-r from-green-700 to-green-500 text-white shadow-lg">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center">
-        <img src="https://iili.io/3a2jmXt.png" alt="Logo" height="30" class="h-13 w-auto mr-1">
-        <a href="#" class="text-xl font-bold tracking-wide hover:text-green-100 transition-colors">EcoNet.io</a>
+<nav *ngIf="shouldShowNavbar()" class="navbar-container sticky top-0 z-50">
+  <!-- Glassmorphism Background -->
+  <div class="navbar-glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Enhanced Logo Section -->
+        <div class="flex-shrink-0 flex items-center logo-section">
+          <div class="logo-wrapper">
+            <img
+              src="https://iili.io/3a2jmXt.png"
+              alt="EcoNet Logo"
+              class="logo-image"
+            />
+            <div class="logo-glow"></div>
+          </div>
+          <div class="logo-text-wrapper">
+            <a href="#" class="logo-text">
+              <span class="logo-eco">Eco</span><span class="logo-net">Net</span
+              ><span class="logo-io">.io</span>
+            </a>
+            <div class="logo-subtitle">Plataforma Ecológica</div>
+          </div>
+        </div>
+
+        <!-- Enhanced Navigation Links - Desktop -->
+        <div class="hidden md:flex items-center space-x-2">
+          <div class="nav-links-container">
+            @for(item of listaMenu; track $index; let i = $index) {
+            <a
+              [routerLink]="item.url"
+              routerLinkActive="nav-link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+              [style.animation-delay]="i * 0.1 + 's'"
+            >
+              <span class="nav-link-text">{{ item.title }}</span>
+              <div class="nav-link-indicator"></div>
+              <div class="nav-link-glow"></div>
+            </a>
+            }
+          </div>
+
+          <!-- User Info Section - Desktop -->
+          <div *ngIf="currentUser" class="user-info-container">
+            <div class="user-avatar">
+              {{ getUserInitials() }}
+            </div>
+            <div class="user-details">
+              <div class="user-name">
+                {{ currentUser.nombre }}
+                <span *ngIf="currentUser.role === 'admin'" class="admin-badge">
+                  ADMIN
+                </span>
+              </div>
+              <div class="user-role">{{ getUserRoleDisplay() }}</div>
+            </div>
+            <button (click)="logout()" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Salir</span>
+            </button>
+          </div>
+
+          <!-- Decorative Elements -->
+          <div class="nav-decoration">
+            <div class="floating-particle particle-1"></div>
+            <div class="floating-particle particle-2"></div>
+          </div>
+        </div>
+
+        <!-- Enhanced Mobile Menu Button -->
+        <div class="md:hidden">
+          <button (click)="toggleMobileMenu()" class="mobile-menu-btn">
+            <div class="hamburger-container" [class.active]="isMobileMenuOpen">
+              <span class="hamburger-line line-1"></span>
+              <span class="hamburger-line line-2"></span>
+              <span class="hamburger-line line-3"></span>
+            </div>
+            <div class="mobile-btn-glow"></div>
+          </button>
+        </div>
       </div>
-      
-      <!-- Navigation Links - Desktop -->
-      <div class="hidden md:flex space-x-1">
-        @for(item of listaMenu; track $index) {
-          <a 
-            [routerLink]="item.url" 
-            routerLinkActive="bg-green-700 text-white font-medium"
-            [routerLinkActiveOptions]="{exact: true}"
-            class="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-700 hover:text-white">
-            {{item.title}}
-          </a>
-        }
-      </div>
-      
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button (click)="toggleMobileMenu()" class="text-white p-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-white">
-          <svg *ngIf="!isMobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-          <svg *ngIf="isMobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div *ngIf="isMobileMenuOpen" class="md:hidden">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-green-400 animate-fadeIn">
-        @for(item of listaMenu; track $index) {
-          <a 
-            [routerLink]="item.url" 
-            routerLinkActive="bg-green-700"
-            [routerLinkActiveOptions]="{exact: true}"
-            (click)="isMobileMenuOpen = false"
-            class="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
-            {{item.title}}
-          </a>
-        }
+
+      <!-- Enhanced Mobile Menu -->
+      <div *ngIf="isMobileMenuOpen" class="mobile-menu md:hidden">
+        <div class="mobile-menu-backdrop"></div>
+        <div class="mobile-menu-content">
+          <div class="mobile-menu-header">
+            <h3 class="mobile-menu-title">Navegación</h3>
+            <div class="mobile-menu-divider"></div>
+          </div>
+
+          <!-- User Info - Mobile -->
+          <div *ngIf="currentUser" class="mobile-user-info">
+            <div class="user-avatar">
+              {{ getUserInitials() }}
+            </div>
+            <div class="user-details">
+              <div class="user-name">
+                {{ currentUser.nombre }}
+                <span *ngIf="currentUser.role === 'admin'" class="admin-badge">
+                  ADMIN
+                </span>
+              </div>
+              <div class="user-role">{{ getUserRoleDisplay() }}</div>
+            </div>
+          </div>
+
+          <div class="mobile-links-container">
+            @for(item of listaMenu; track $index; let i = $index) {
+            <a
+              [routerLink]="item.url"
+              routerLinkActive="mobile-link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="isMobileMenuOpen = false"
+              class="mobile-link"
+              [style.animation-delay]="i * 0.1 + 0.2 + 's'"
+            >
+              <div class="mobile-link-icon">
+                <i class="fas" [class]="getMobileIcon(item.title)"></i>
+              </div>
+              <span class="mobile-link-text">{{ item.title }}</span>
+              <div class="mobile-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div class="mobile-link-glow"></div>
+            </a>
+            }
+
+            <!-- Logout Button - Mobile -->
+            <button
+              (click)="logout()"
+              class="mobile-link"
+              style="
+                animation-delay: 0.5s;
+                border: 2px solid rgba(239, 68, 68, 0.3);
+                background: rgba(239, 68, 68, 0.1);
+              "
+            >
+              <div
+                class="mobile-link-icon"
+                style="background: rgba(239, 68, 68, 0.2)"
+              >
+                <i class="fas fa-sign-out-alt" style="color: #fca5a5"></i>
+              </div>
+              <span class="mobile-link-text">Cerrar Sesión</span>
+              <div class="mobile-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div class="mobile-link-glow"></div>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Animated Border -->
+  <div class="navbar-border"></div>
 </nav>
 
 <router-outlet></router-outlet>

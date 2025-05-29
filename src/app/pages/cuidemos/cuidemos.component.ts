@@ -4,306 +4,207 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ManualsService } from './manuals.service';
 import { Manual } from '../../interfaces/manual.interface';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  query,
+  stagger,
+  keyframes,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-cuidemos',
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './cuidemos.component.html',
-  styles: `
-    /* Animaciones de entrada */
-    .fade-in {
-      animation: fadeIn 1s ease-in-out;
-    }
-    
-    .slide-up {
-      animation: slideUp 0.8s ease-out;
-    }
-    
-    .slide-in-left {
-      animation: slideInLeft 0.8s ease-out;
-    }
-    
-    .slide-in-right {
-      animation: slideInRight 0.8s ease-out;
-    }
-    
-    .bounce-in {
-      animation: bounceIn 1.2s ease-out;
-    }
-    
-    .scale-in {
-      animation: scaleIn 0.6s ease-out;
-    }
-    
-    /* Animaciones constantes */
-    .float {
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    .pulse-glow {
-      animation: pulseGlow 3s ease-in-out infinite;
-    }
-    
-    .rotate-slow {
-      animation: rotateSlow 20s linear infinite;
-    }
-    
-    .wave {
-      animation: wave 4s ease-in-out infinite;
-    }
-    
-    .shimmer {
-      animation: shimmer 2s linear infinite;
-    }
-    
-    /* Efectos hover mejorados */
-    .card-hover {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .card-hover:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
-    }
-    
-    .btn-hover {
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-hover::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn-hover:hover::before {
-      left: 100%;
-    }
-    
-    .btn-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
-    }
-    
-    .input-focus {
-      transition: all 0.3s ease;
-    }
-    
-    .input-focus:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);
-    }
-    
-    /* Gradientes animados */
-    .gradient-bg {
-      background: linear-gradient(-45deg, #10b981, #059669, #047857, #065f46);
-      background-size: 400% 400%;
-      animation: gradientShift 8s ease infinite;
-    }
-    
-    .gradient-text {
-      background: linear-gradient(-45deg, #10b981, #059669, #047857, #065f46);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 6s ease infinite;
-    }
-    
-    /* Partículas flotantes */
-    .particle {
-      position: absolute;
-      background: rgba(34, 197, 94, 0.1);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    
-    .particle-1 {
-      width: 4px;
-      height: 4px;
-      top: 20%;
-      left: 10%;
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    .particle-2 {
-      width: 6px;
-      height: 6px;
-      top: 60%;
-      right: 15%;
-      animation: float 10s ease-in-out infinite reverse;
-    }
-    
-    .particle-3 {
-      width: 3px;
-      height: 3px;
-      top: 80%;
-      left: 70%;
-      animation: float 12s ease-in-out infinite;
-    }
-    
-    .particle-4 {
-      width: 5px;
-      height: 5px;
-      top: 40%;
-      left: 80%;
-      animation: float 14s ease-in-out infinite;
-    }
-    
-    /* Keyframes */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideUp {
-      from { 
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes slideInLeft {
-      from { 
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    @keyframes slideInRight {
-      from { 
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    @keyframes bounceIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.3);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.05);
-      }
-      70% {
-        transform: scale(0.9);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    @keyframes scaleIn {
-      from { 
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to { 
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-    
-    @keyframes pulseGlow {
-      0%, 100% { 
-        box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
-      }
-      50% { 
-        box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
-      }
-    }
-    
-    @keyframes rotateSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    @keyframes wave {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg); }
-      75% { transform: rotate(-5deg); }
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: -200px 0; }
-      100% { background-position: calc(200px + 100%) 0; }
-    }
-    
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    /* Efectos de scroll */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-    
-    .scroll-reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Efectos especiales */
-    .glass-effect {
-      backdrop-filter: blur(16px);
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .neon-glow {
-      box-shadow: 0 0 5px #10b981, 0 0 10px #10b981, 0 0 15px #10b981;
-    }
-    
-    /* Modal styles */
-    .modal-backdrop {
-      backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.5);
-    }
-    
-    .modal-content {
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    
-    /* Search styles */
-    .search-highlight {
-      background: linear-gradient(120deg, #fbbf24 0%, #f59e0b 100%);
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-  `,
+  styleUrl: './cuidemos.component.css',
+  animations: [
+    // Animación de entrada principal
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px)' }),
+        animate(
+          '600ms cubic-bezier(0.35, 0, 0.25, 1)',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+    ]),
+
+    // Animación de entrada con stagger para elementos de lista
+    trigger('staggerIn', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(30px)' }),
+            stagger(100, [
+              animate(
+                '500ms cubic-bezier(0.35, 0, 0.25, 1)',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+
+    // Animación hover mejorada para cards
+    trigger('cardHover', [
+      state(
+        'default',
+        style({
+          transform: 'scale(1) translateY(0)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        })
+      ),
+      state(
+        'hovered',
+        style({
+          transform: 'scale(1.02) translateY(-8px)',
+          boxShadow: '0 20px 40px rgba(34, 197, 94, 0.15)',
+        })
+      ),
+      transition('default <=> hovered', [
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)'),
+      ]),
+    ]),
+
+    // Animación para el modal
+    trigger('modalAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.8) translateY(-50px)' }),
+        animate(
+          '400ms cubic-bezier(0.35, 0, 0.25, 1)',
+          style({ opacity: 1, transform: 'scale(1) translateY(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '300ms cubic-bezier(0.4, 0, 1, 1)',
+          style({ opacity: 0, transform: 'scale(0.8) translateY(-50px)' })
+        ),
+      ]),
+    ]),
+
+    // Animación de backdrop del modal
+    trigger('backdropAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, backdropFilter: 'blur(0px)' }),
+        animate(
+          '300ms ease-out',
+          style({ opacity: 1, backdropFilter: 'blur(12px)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '200ms ease-in',
+          style({ opacity: 0, backdropFilter: 'blur(0px)' })
+        ),
+      ]),
+    ]),
+
+    // Animación para elementos del modal
+    trigger('modalContentAnimation', [
+      transition(':enter', [
+        query(
+          '.modal-section',
+          [
+            style({ opacity: 0, transform: 'translateY(20px)' }),
+            stagger(50, [
+              animate(
+                '300ms cubic-bezier(0.35, 0, 0.25, 1)',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+
+    // Animación de botones con efecto bounce
+    trigger('buttonPress', [
+      transition('* => pressed', [
+        animate('150ms ease-in', style({ transform: 'scale(0.95)' })),
+        animate('150ms ease-out', style({ transform: 'scale(1)' })),
+      ]),
+    ]),
+
+    // Animación de entrada para elementos individuales
+    trigger('slideInLeft', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-50px)' }),
+        animate(
+          '500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          style({ opacity: 1, transform: 'translateX(0)' })
+        ),
+      ]),
+    ]),
+
+    trigger('slideInRight', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(50px)' }),
+        animate(
+          '500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          style({ opacity: 1, transform: 'translateX(0)' })
+        ),
+      ]),
+    ]),
+
+    // Animación de float suave
+    trigger('floatAnimation', [
+      transition('* => *', [
+        animate(
+          '4000ms ease-in-out',
+          keyframes([
+            style({ transform: 'translateY(0px)', offset: 0 }),
+            style({ transform: 'translateY(-10px)', offset: 0.5 }),
+            style({ transform: 'translateY(0px)', offset: 1 }),
+          ])
+        ),
+      ]),
+    ]),
+
+    // Animación de pulso para elementos importantes
+    trigger('pulseGlow', [
+      transition('* => *', [
+        animate(
+          '2000ms ease-in-out',
+          keyframes([
+            style({ boxShadow: '0 0 5px rgba(34, 197, 94, 0.4)', offset: 0 }),
+            style({
+              boxShadow: '0 0 20px rgba(34, 197, 94, 0.8)',
+              offset: 0.5,
+            }),
+            style({ boxShadow: '0 0 5px rgba(34, 197, 94, 0.4)', offset: 1 }),
+          ])
+        ),
+      ]),
+    ]),
+
+    // Animación para iconos
+    trigger('iconBounce', [
+      transition(':enter', [
+        style({ transform: 'scale(0) rotate(180deg)', opacity: 0 }),
+        animate(
+          '500ms cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          style({ transform: 'scale(1) rotate(0deg)', opacity: 1 })
+        ),
+      ]),
+    ]),
+
+    // Animación para botones con efecto ripple
+    trigger('buttonRipple', [
+      state('idle', style({ transform: 'scale(1)' })),
+      state('pressed', style({ transform: 'scale(0.98)' })),
+      transition('idle => pressed', animate('100ms ease-in')),
+      transition('pressed => idle', animate('100ms ease-out')),
+    ]),
+  ],
 })
 export class CuidemosComponent implements OnInit {
   manuales: Manual[] = [];
@@ -312,12 +213,37 @@ export class CuidemosComponent implements OnInit {
   isModalOpen = false;
   isLoading = false;
   searchTerm = '';
+  cardStates: { [key: number]: string } = {};
 
   constructor(private manualsService: ManualsService) {}
 
   ngOnInit(): void {
     this.loadManuales();
     this.setupScrollAnimations();
+    this.initializeCardStates();
+  }
+
+  initializeCardStates(): void {
+    // Inicializar todos los estados de las cards como 'default'
+    this.manuales.forEach((manual) => {
+      this.cardStates[manual.id || 0] = 'default';
+    });
+  }
+
+  onCardMouseEnter(manualId: number): void {
+    this.cardStates[manualId] = 'hovered';
+  }
+
+  onCardMouseLeave(manualId: number): void {
+    this.cardStates[manualId] = 'default';
+  }
+
+  getCardState(manualId: number): string {
+    return this.cardStates[manualId] || 'default';
+  }
+
+  trackByManualId(index: number, manual: Manual): number {
+    return manual.id || 0;
   }
 
   setupScrollAnimations(): void {
@@ -347,6 +273,7 @@ export class CuidemosComponent implements OnInit {
         console.log('Manuales recibidos:', manuales);
         this.manuales = manuales || [];
         this.filteredManuales = this.manuales;
+        this.initializeCardStates();
         this.isLoading = false;
       },
       error: (error) => {
@@ -355,6 +282,7 @@ export class CuidemosComponent implements OnInit {
         // Datos de ejemplo para desarrollo
         this.manuales = this.getExampleManuales();
         this.filteredManuales = this.manuales;
+        this.initializeCardStates();
       },
     });
   }

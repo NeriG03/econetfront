@@ -13,7 +13,7 @@ import { filter } from 'rxjs';
   selector: 'app-admin',
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './admin.component.html',
-  standalone: true,
+  styleUrl: './admin.component.css',
 })
 export class AdminComponent implements OnInit {
   showDashboard = true;

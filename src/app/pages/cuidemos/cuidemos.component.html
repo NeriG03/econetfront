@@ -21,16 +21,14 @@
   <!-- Main Content -->
   <div class="relative z-10 p-6">
     <!-- Hero Section -->
-    <div class="max-w-7xl mx-auto mb-16">
+    <div class="max-w-7xl mx-auto mb-16" [@fadeInUp]>
       <div
-        class="backdrop-blur-lg bg-white/20 rounded-3xl p-12 shadow-2xl border border-white/30 pulse-glow bounce-in text-center"
+        class="backdrop-blur-lg bg-white/20 rounded-3xl p-12 shadow-2xl border border-white/30 text-center"
       >
-        <h1 class="text-6xl font-bold gradient-text mb-6 wave">
+        <h1 class="text-6xl font-bold gradient-text mb-6">
           Manuales de Plantas
         </h1>
-        <p
-          class="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed slide-up"
-        >
+        <p class="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
           Descubre nuestra colección completa de manuales de cuidado para
           plantas. Aprende todo lo que necesitas saber para mantener tus plantas
           saludables y hermosas.
@@ -41,8 +39,43 @@
       </div>
     </div>
 
+    <!-- Enhanced Navigation Buttons -->
+    <div class="flex flex-wrap justify-center gap-8 mb-20" [@slideInLeft]>
+      <a
+        routerLink="/noticias"
+        class="group btn-hover gradient-bg text-white px-10 py-5 rounded-2xl shadow-xl border-2 border-white/20 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105"
+      >
+        <i class="fas fa-newspaper text-2xl"></i>
+        <span>Noticias Ecológicas</span>
+        <i
+          class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+        ></i>
+      </a>
+
+      <button
+        class="group btn-hover gradient-bg text-white px-10 py-5 rounded-2xl shadow-xl border-2 border-white/20 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105"
+      >
+        <i class="fas fa-map-marker-alt text-2xl"></i>
+        <span>Ubicaciones Verdes</span>
+        <i
+          class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+        ></i>
+      </button>
+
+      <a
+        routerLink="/home"
+        class="group btn-hover bg-white/20 backdrop-blur-sm text-gray-700 px-10 py-5 rounded-2xl shadow-xl border-2 border-white/30 font-bold text-lg flex items-center gap-3 transform transition-all duration-300 hover:scale-105"
+      >
+        <i class="fas fa-home text-2xl"></i>
+        <span>Volver al Inicio</span>
+        <i
+          class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"
+        ></i>
+      </a>
+    </div>
+
     <!-- Search and Filter Section -->
-    <div class="max-w-7xl mx-auto mb-12 scroll-reveal">
+    <div class="max-w-7xl mx-auto mb-12" [@fadeInUp]>
       <div
         class="glass-effect rounded-2xl p-8 shadow-xl border border-white/30"
       >
@@ -55,7 +88,7 @@
                 [(ngModel)]="searchTerm"
                 (input)="searchManuales()"
                 placeholder="Buscar plantas, cuidados, características..."
-                class="input-focus w-full px-6 py-4 pl-14 rounded-xl border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-lg text-gray-800 bg-white/80 backdrop-blur-sm"
+                class="w-full px-6 py-4 pl-14 rounded-xl border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-lg text-gray-800 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:transform focus:scale-105"
               />
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center">
                 <i class="fas fa-search text-emerald-600 text-xl"></i>
@@ -103,7 +136,8 @@
     <!-- Loading Spinner -->
     <div
       *ngIf="isLoading"
-      class="flex justify-center items-center py-20 scroll-reveal"
+      class="flex justify-center items-center py-20"
+      [@fadeInUp]
     >
       <div class="text-center">
         <div
@@ -116,7 +150,8 @@
     <!-- No Results Message -->
     <div
       *ngIf="!isLoading && filteredManuales.length === 0 && searchTerm"
-      class="max-w-4xl mx-auto text-center py-20 scroll-reveal"
+      class="max-w-4xl mx-auto text-center py-20"
+      [@fadeInUp]
     >
       <div
         class="glass-effect rounded-3xl p-12 shadow-xl border border-white/30"
@@ -131,7 +166,7 @@
         </p>
         <button
           (click)="searchTerm = ''; searchManuales()"
-          class="btn-hover gradient-bg text-white px-8 py-3 rounded-xl shadow-lg font-semibold"
+          class="gradient-bg text-white px-8 py-3 rounded-xl shadow-lg font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105"
         >
           <i class="fas fa-redo mr-2"></i>
           Ver todos los manuales
@@ -142,13 +177,20 @@
     <!-- Manuales Grid -->
     <div
       *ngIf="!isLoading && filteredManuales.length > 0"
-      class="max-w-7xl mx-auto scroll-reveal"
+      class="max-w-7xl mx-auto"
+      [@staggerIn]="filteredManuales.length"
     >
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          *ngFor="let manual of filteredManuales; let i = index"
-          class="card-hover glass-effect rounded-3xl overflow-hidden shadow-xl border border-white/30 cursor-pointer"
-          [style.animation-delay]="i * 0.1 + 's'"
+          *ngFor="
+            let manual of filteredManuales;
+            let i = index;
+            trackBy: trackByManualId
+          "
+          class="glass-effect rounded-3xl overflow-hidden shadow-xl border border-white/30 cursor-pointer"
+          [@cardHover]="getCardState(manual.id || 0)"
+          (mouseenter)="onCardMouseEnter(manual.id || 0)"
+          (mouseleave)="onCardMouseLeave(manual.id || 0)"
           (click)="openModal(manual)"
         >
           <!-- Image Section -->
@@ -163,7 +205,7 @@
               class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
             ></div>
             <div
-              class="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-semibold float"
+              class="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-semibold"
             >
               <i class="fas fa-leaf mr-1"></i>
               Manual #{{ manual.id }}
@@ -263,21 +305,12 @@
 
             <!-- Action Button -->
             <button
-              class="btn-hover w-full gradient-bg text-white py-3 px-6 rounded-xl shadow-lg font-semibold text-lg flex items-center justify-center gap-3"
+              class="w-full gradient-bg text-white py-3 px-6 rounded-xl shadow-lg font-semibold text-lg flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
-              <i class="fas fa-book-open float"></i>
+              <i class="fas fa-book-open"></i>
               <span>Ver Manual Completo</span>
               <i class="fas fa-arrow-right"></i>
             </button>
-
-            <!-- Shimmer Effect -->
-            <div
-              class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-3xl overflow-hidden pointer-events-none"
-            >
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent shimmer"
-              ></div>
-            </div>
           </div>
         </div>
       </div>
@@ -286,7 +319,8 @@
     <!-- Call to Action -->
     <div
       *ngIf="!isLoading && filteredManuales.length > 0"
-      class="max-w-4xl mx-auto mt-20 text-center scroll-reveal"
+      class="max-w-4xl mx-auto mt-20 text-center"
+      [@slideInRight]
     >
       <div
         class="glass-effect rounded-3xl p-12 shadow-2xl border border-white/30"
@@ -302,15 +336,15 @@
         <div class="flex flex-wrap justify-center gap-6">
           <a
             routerLink="/contacto"
-            class="btn-hover gradient-bg text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-lg flex items-center gap-3"
+            class="gradient-bg text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-lg flex items-center gap-3 transition-all duration-300 hover:shadow-2xl hover:scale-105"
           >
-            <i class="fas fa-envelope float"></i>
+            <i class="fas fa-envelope"></i>
             <span>Sugerir Planta</span>
           </a>
 
           <a
             routerLink="/home"
-            class="btn-hover bg-white/20 backdrop-blur-sm text-gray-700 px-8 py-4 rounded-2xl shadow-xl font-bold text-lg border border-white/30 flex items-center gap-3"
+            class="bg-white/20 backdrop-blur-sm text-gray-700 px-8 py-4 rounded-2xl shadow-xl font-bold text-lg border border-white/30 flex items-center gap-3 transition-all duration-300 hover:shadow-2xl hover:scale-105"
           >
             <i class="fas fa-home"></i>
             <span>Volver al Inicio</span>
@@ -327,11 +361,13 @@
 <!-- Modal de Detalles del Manual -->
 <div
   *ngIf="isModalOpen && selectedManual"
-  class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4"
+  [@backdropAnimation]
   (click)="closeModal()"
 >
   <div
-    class="glass-effect rounded-3xl max-w-6xl w-full modal-content shadow-2xl border border-white/30 bounce-in"
+    class="glass-effect rounded-3xl max-w-6xl w-full modal-content shadow-2xl border border-white/30"
+    [@modalAnimation]
     (click)="$event.stopPropagation()"
   >
     <!-- Modal Header -->
@@ -358,10 +394,10 @@
     </div>
 
     <!-- Modal Content -->
-    <div class="p-8">
+    <div class="p-8" [@modalContentAnimation]>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Image Section -->
-        <div class="space-y-6">
+        <div class="space-y-6 modal-section">
           <div class="relative">
             <img
               [src]="selectedManual.imagen"
@@ -381,14 +417,20 @@
             <div
               class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center"
             >
-              <i class="fas fa-calendar-alt text-emerald-600 text-2xl mb-2"></i>
+              <i
+                class="fas fa-calendar-alt text-emerald-600 text-2xl mb-2"
+                [@iconBounce]
+              ></i>
               <p class="text-sm text-gray-600">Última actualización</p>
               <p class="font-semibold text-gray-800">Reciente</p>
             </div>
             <div
               class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center"
             >
-              <i class="fas fa-star text-yellow-500 text-2xl mb-2"></i>
+              <i
+                class="fas fa-star text-yellow-500 text-2xl mb-2"
+                [@iconBounce]
+              ></i>
               <p class="text-sm text-gray-600">Dificultad</p>
               <p class="font-semibold text-gray-800">Intermedio</p>
             </div>
@@ -396,16 +438,16 @@
         </div>
 
         <!-- Details Section -->
-        <div class="space-y-6">
+        <div class="space-y-6 modal-section">
           <!-- Luz -->
           <div
-            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
           >
             <div class="flex items-center space-x-3 mb-4">
               <div
                 class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center"
               >
-                <i class="fas fa-sun text-yellow-600 text-lg"></i>
+                <i class="fas fa-sun text-yellow-600 text-lg" [@iconBounce]></i>
               </div>
               <h3 class="text-xl font-bold text-gray-800">Luz</h3>
             </div>
@@ -416,13 +458,13 @@
 
           <!-- Riego -->
           <div
-            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
           >
             <div class="flex items-center space-x-3 mb-4">
               <div
                 class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"
               >
-                <i class="fas fa-tint text-blue-600 text-lg"></i>
+                <i class="fas fa-tint text-blue-600 text-lg" [@iconBounce]></i>
               </div>
               <h3 class="text-xl font-bold text-gray-800">Riego</h3>
             </div>
@@ -433,13 +475,16 @@
 
           <!-- Humedad -->
           <div
-            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+            class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
           >
             <div class="flex items-center space-x-3 mb-4">
               <div
                 class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
               >
-                <i class="fas fa-droplet text-purple-600 text-lg"></i>
+                <i
+                  class="fas fa-droplet text-purple-600 text-lg"
+                  [@iconBounce]
+                ></i>
               </div>
               <h3 class="text-xl font-bold text-gray-800">Humedad</h3>
             </div>
@@ -454,13 +499,16 @@
       <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Temperatura -->
         <div
-          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
         >
           <div class="flex items-center space-x-3 mb-4">
             <div
               class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-thermometer-half text-green-600 text-lg"></i>
+              <i
+                class="fas fa-thermometer-half text-green-600 text-lg"
+                [@iconBounce]
+              ></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">Temperatura</h3>
           </div>
@@ -471,13 +519,16 @@
 
         <!-- Abono -->
         <div
-          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
         >
           <div class="flex items-center space-x-3 mb-4">
             <div
               class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-seedling text-orange-600 text-lg"></i>
+              <i
+                class="fas fa-seedling text-orange-600 text-lg"
+                [@iconBounce]
+              ></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">Abono</h3>
           </div>
@@ -488,13 +539,13 @@
 
         <!-- Poda -->
         <div
-          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
         >
           <div class="flex items-center space-x-3 mb-4">
             <div
               class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-cut text-red-600 text-lg"></i>
+              <i class="fas fa-cut text-red-600 text-lg" [@iconBounce]></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">Poda</h3>
           </div>
@@ -503,13 +554,16 @@
 
         <!-- Trasplante -->
         <div
-          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
+          class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30 modal-section"
         >
           <div class="flex items-center space-x-3 mb-4">
             <div
               class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-exchange-alt text-indigo-600 text-lg"></i>
+              <i
+                class="fas fa-exchange-alt text-indigo-600 text-lg"
+                [@iconBounce]
+              ></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">Trasplante</h3>
           </div>
@@ -520,7 +574,7 @@
       </div>
 
       <!-- Enfermedades -->
-      <div class="mt-6">
+      <div class="mt-6 modal-section">
         <div
           class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
         >
@@ -528,7 +582,7 @@
             <div
               class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-bug text-pink-600 text-lg"></i>
+              <i class="fas fa-bug text-pink-600 text-lg" [@iconBounce]></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">
               Enfermedades y Plagas
@@ -541,7 +595,7 @@
       </div>
 
       <!-- Otros (si existe) -->
-      <div *ngIf="selectedManual.otros" class="mt-6">
+      <div *ngIf="selectedManual.otros" class="mt-6 modal-section">
         <div
           class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border border-white/30"
         >
@@ -549,7 +603,10 @@
             <div
               class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"
             >
-              <i class="fas fa-info-circle text-gray-600 text-lg"></i>
+              <i
+                class="fas fa-info-circle text-gray-600 text-lg"
+                [@iconBounce]
+              ></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">
               Información Adicional
